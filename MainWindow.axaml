@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:PQLauncher;assembly=PQLauncher"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450" Width="600" Height="450" MinWidth="600" MinHeight="450"
+        x:Class="PQLauncher.MainWindow"
+        Title="PQLauncher" 
+		Name="MainWnd"
+		RequestedThemeVariant="Light"
+		>
+	<StackPanel>
+		<ComboBox Margin="20,20,20,0" HorizontalAlignment="Stretch" Name="ModSelector" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged_1">
+			<ComboBoxItem>PlatinumQuest</ComboBoxItem>
+		</ComboBox>
+		<TabControl>
+			<TabItem Header="News">
+				<ScrollViewer Height="240">
+				<TextBlock Name="NewsBlock" TextWrapping="Wrap">
+					Hello World
+				</TextBlock>
+				</ScrollViewer>
+			</TabItem>
+			<TabItem Header="Game Updates" MaxWidth="600">
+				<ScrollViewer Height="240">
+					<TextBlock Name="UpdatesBlock" TextWrapping="Wrap">
+						Hello World
+					</TextBlock>
+				</ScrollViewer>
+			</TabItem>
+			<TabItem Header="Console" MaxWidth="600">
+				<ScrollViewer Height="240">
+					<TextBlock Name="ConsoleBlock">
+						Hello World
+					</TextBlock>
+				</ScrollViewer>
+			</TabItem>
+			<TabItem Header="Settings">
+				<Grid ColumnDefinitions="*,100" RowDefinitions="35, 35, 35" Height="240">
+					<Label Name="GameLocation" Grid.Column="0" Grid.Row="0">Game Location:</Label>
+					<Label Grid.Column="0" Grid.Row="1">Open Game Files:</Label>
+					<Label Grid.Column="0" Grid.Row="2">Run Full Update:</Label>
+					<Button Name="GameLocationChange" Grid.Column="1" Grid.Row="0" Width="100" HorizontalContentAlignment="Center">Change</Button>
+					<Button Name="OpenGameFiles" Grid.Column="1" Grid.Row="1" Width="100" HorizontalContentAlignment="Center">Open</Button>
+					<Button Name="RunFullUpdate" Grid.Column="1" Grid.Row="2" Width="100" HorizontalContentAlignment="Center">Update</Button>
+				</Grid>
+			</TabItem>
+		</TabControl>
+		<ProgressBar Margin="20,20,20,20" Height="20" HorizontalAlignment="Stretch" Value="100" />
+		<Button Name="PlayButton" Width="200" Margin="20,0,20,20" HorizontalAlignment="Center" HorizontalContentAlignment="Center" >
+			Play
+		</Button>
+	</StackPanel>
+</Window>

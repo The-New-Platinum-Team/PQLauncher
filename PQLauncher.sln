@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PQLauncher", "PQLauncher.csproj", "{342FF84C-BE60-4A1B-8C89-B11C6D9C0625}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{342FF84C-BE60-4A1B-8C89-B11C6D9C0625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{342FF84C-BE60-4A1B-8C89-B11C6D9C0625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{342FF84C-BE60-4A1B-8C89-B11C6D9C0625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{342FF84C-BE60-4A1B-8C89-B11C6D9C0625}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C4C6463-76A4-472B-A5FD-EB4524ADCCA6}
+	EndGlobalSection
+EndGlobal
