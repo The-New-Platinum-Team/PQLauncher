@@ -1,54 +1,75 @@
-<Window xmlns="https://github.com/avaloniaui"
+<sukiUi:SukiWindow xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:sukiUi="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 		xmlns:local="clr-namespace:PQLauncher;assembly=PQLauncher"
-        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450" Width="600" Height="450" MinWidth="600" MinHeight="450"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="470" Width="600" Height="430" MinWidth="600" MinHeight="430" MaxHeight="430"
         x:Class="PQLauncher.MainWindow"
         Title="PQLauncher" 
 		Name="MainWnd"
-		RequestedThemeVariant="Light"
 		>
+	<sukiUi:SukiWindow.Hosts>
+		<sukiUi:SukiDialogHost Name="DialogHost"/>
+	</sukiUi:SukiWindow.Hosts>
+
+
 	<StackPanel>
 		<ComboBox Margin="20,20,20,0" HorizontalAlignment="Stretch" Name="ModSelector" SelectedIndex="0" SelectionChanged="ComboBox_SelectionChanged_1">
 			<ComboBoxItem>PlatinumQuest</ComboBoxItem>
 		</ComboBox>
-		<TabControl>
-			<TabItem Header="News">
-				<ScrollViewer Height="240">
-				<TextBlock Name="NewsBlock" TextWrapping="Wrap">
-					Hello World
-				</TextBlock>
+		<TabControl Margin="20,0,20,0">
+			<TabItem Header="News" MaxWidth="600">
+				<sukiUi:GlassCard Margin="0,10,0,0" Height="240">
+				<ScrollViewer>
+					<sukiUi:BusyArea BusyText="Loading..." Name="NewsBusy">
+						<TextBlock Name="NewsBlock" TextWrapping="Wrap">
+							
+						</TextBlock>
+					</sukiUi:BusyArea>
 				</ScrollViewer>
+				</sukiUi:GlassCard>
 			</TabItem>
 			<TabItem Header="Game Updates" MaxWidth="600">
-				<ScrollViewer Height="240">
+				<sukiUi:GlassCard Margin="0,10,0,0" Height="240">
+				<ScrollViewer>
+					<sukiUi:BusyArea BusyText="Loading..." Name="UpdatesBusy">
 					<TextBlock Name="UpdatesBlock" TextWrapping="Wrap">
-						Hello World
+						
 					</TextBlock>
+					</sukiUi:BusyArea>
 				</ScrollViewer>
+				</sukiUi:GlassCard>
 			</TabItem>
 			<TabItem Header="Console" MaxWidth="600">
-				<ScrollViewer Height="240">
+				<sukiUi:GlassCard Margin="0,10,0,0" Height="240">
+				<ScrollViewer Name="ConsoleScroll">
 					<TextBlock Name="ConsoleBlock">
-						Hello World
+						
 					</TextBlock>
 				</ScrollViewer>
+				</sukiUi:GlassCard>
 			</TabItem>
 			<TabItem Header="Settings">
-				<Grid ColumnDefinitions="*,100" RowDefinitions="35, 35, 35" Height="240">
-					<Label Name="GameLocation" Grid.Column="0" Grid.Row="0">Game Location:</Label>
-					<Label Grid.Column="0" Grid.Row="1">Open Game Files:</Label>
-					<Label Grid.Column="0" Grid.Row="2">Run Full Update:</Label>
-					<Button Name="GameLocationChange" Grid.Column="1" Grid.Row="0" Width="100" HorizontalContentAlignment="Center">Change</Button>
-					<Button Name="OpenGameFiles" Grid.Column="1" Grid.Row="1" Width="100" HorizontalContentAlignment="Center">Open</Button>
-					<Button Name="RunFullUpdate" Grid.Column="1" Grid.Row="2" Width="100" HorizontalContentAlignment="Center">Update</Button>
-				</Grid>
+				<sukiUi:GlassCard Margin="0,10,0,0" Height="240">
+					<sukiUi:BusyArea BusyText="Loading..." Name="SettingsBusy">
+						<Grid ColumnDefinitions="*,100" RowDefinitions="35, 35, 35">
+							<Label Name="GameLocation" Grid.Column="0" Grid.Row="0">Game Location:</Label>
+							<Label Grid.Column="0" Grid.Row="1">Open Game Files:</Label>
+							<Label Grid.Column="0" Grid.Row="2">Run Full Update:</Label>
+							<Button Name="GameLocationChange" Grid.Column="1" Grid.Row="0" Width="100" Height="35" HorizontalContentAlignment="Center" Classes="Outlined Rounded" FontSize="13" Click="ChangeGameLocation_Click">Change</Button>
+							<Button Name="OpenGameFiles" Grid.Column="1" Grid.Row="1" Width="100" Height="35" HorizontalContentAlignment="Center" Classes="Outlined Rounded" FontSize="13" Click="OpenGame_Click">Open</Button>
+							<Button Name="RunFullUpdate" Grid.Column="1" Grid.Row="2" Width="100" Height="35" HorizontalContentAlignment="Center" Classes="Outlined Rounded" FontSize="13">Update</Button>
+						</Grid>
+					</sukiUi:BusyArea>
+				</sukiUi:GlassCard>
 			</TabItem>
 		</TabControl>
-		<ProgressBar Margin="20,20,20,20" Height="20" HorizontalAlignment="Stretch" Value="100" />
-		<Button Name="PlayButton" Width="200" Margin="20,0,20,20" HorizontalAlignment="Center" HorizontalContentAlignment="Center" >
+		
+		<ProgressBar Margin="20,20,20,0" HorizontalAlignment="Stretch" Name="DownloadProgress" />
+		<ProgressBar Margin="20,0,20,10" HorizontalAlignment="Stretch" Name="UpdateProgress" />
+		<Button Name="PlayButton" Width="200" Margin="20,20,20,20" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Classes="Flat" Click="Play_Click" >
 			Play
 		</Button>
 	</StackPanel>
-</Window>
+</sukiUi:SukiWindow>

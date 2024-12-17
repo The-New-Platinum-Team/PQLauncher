@@ -53,6 +53,24 @@ namespace PQLauncher
             }
         }
 
+        public static string DefaultInstallationPath
+        {
+            get
+            {
+                switch (OSPlatform)
+                {
+                    case PlatformValue.Windows:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+                    case PlatformValue.MacOSX:
+                        return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Applications");
+
+                    default:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                }
+            }
+        }
+
         public static string PlatformToString(PlatformValue val)
         {
             switch (val)
@@ -63,6 +81,55 @@ namespace PQLauncher
                     return "mac";
                 default:
                     return "other";
+            }
+        }
+
+        public static void OpenDirectory(string path)
+        {
+            switch (OSPlatform)
+            {
+                case PlatformValue.Windows:
+                    System.Diagnostics.Process.Start("explorer.exe", path);
+                    break;
+
+                case PlatformValue.MacOSX:
+                    System.Diagnostics.Process.Start("open", ["-R", path]);
+                    break;
+
+                case PlatformValue.Linux:
+                    System.Diagnostics.Process.Start("xdg-open", path);
+                    break;
+            }
+        }
+
+        public static System.Diagnostics.Process LaunchGame(string path, bool offline)
+        {
+            switch (OSPlatform)
+            {
+                case PlatformValue.Windows:
+                case PlatformValue.Linux:
+                case PlatformValue.Unknown:
+                    {
+                        var psi = new System.Diagnostics.ProcessStartInfo(path);
+                        if (offline)
+                            psi.Arguments = "-offline";
+                        psi.WorkingDirectory = Path.GetDirectoryName(path);
+                        return System.Diagnostics.Process.Start(psi);
+                    }
+
+                case PlatformValue.MacOSX:
+                    {
+                        var psi = new System.Diagnostics.ProcessStartInfo(path);
+                        if (offline)
+                            psi.Arguments = "-nohomedir -offline";
+                        else
+                            psi.Arguments = "-nohomedir";
+                        psi.WorkingDirectory = Path.GetDirectoryName(path);
+                        return System.Diagnostics.Process.Start(psi);
+                    }
+
+                default:
+                    return null;
             }
         }
     }

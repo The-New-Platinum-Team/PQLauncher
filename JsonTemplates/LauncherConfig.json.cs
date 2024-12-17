@@ -73,6 +73,7 @@ namespace PQLauncher.JsonTemplates
             {
                 config = JsonConvert.DeserializeObject<ModConfig>(json);
                 mods.Add(config.name, config);
+                Settings.AddModification(config, address);
 
                 return config;
             }
@@ -92,6 +93,12 @@ namespace PQLauncher.JsonTemplates
             List<Task<ModConfig>> tasks = new List<Task<ModConfig>>();
             foreach (Uri address in defaultmods.Keys)
             {
+                tasks.Add(DownloadMod(address));
+            }
+            foreach (Uri address in Settings.InstalledMods.Values)
+            {
+                if (defaultmods.ContainsKey(address))
+                    continue;
                 tasks.Add(DownloadMod(address));
             }
 
