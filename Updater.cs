@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using PQLauncher.JsonTemplates;
 using System;
 using System.Collections.Generic;
@@ -10,7 +9,6 @@ using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Tmds.DBus.Protocol;
 
 namespace PQLauncher
 {

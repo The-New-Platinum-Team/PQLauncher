@@ -110,6 +110,24 @@ namespace PQLauncher
                 case PlatformValue.Linux:
                 case PlatformValue.Unknown:
                     {
+                        if (OSPlatform != PlatformValue.Windows)
+                        {
+                            // Check if we can execute it
+                            var attribs = File.GetUnixFileMode(path);
+                            if ((attribs & UnixFileMode.UserExecute) == 0)
+                                attribs |= UnixFileMode.UserExecute;
+                            if ((attribs & UnixFileMode.GroupExecute) == 0)
+                                attribs |= UnixFileMode.GroupExecute;
+                            if ((attribs & UnixFileMode.OtherExecute) == 0)
+                                attribs |= UnixFileMode.OtherExecute;
+                            try
+                            {
+                                File.SetUnixFileMode(path, attribs);
+                            }
+                            catch (Exception ex)
+                            {
+                            }
+                        }
                         var psi = new System.Diagnostics.ProcessStartInfo(path);
                         if (offline)
                             psi.Arguments = "-offline";
@@ -119,6 +137,22 @@ namespace PQLauncher
 
                 case PlatformValue.MacOSX:
                     {
+                        // Check if we can execute it
+                        var attribs = File.GetUnixFileMode(path);
+                        if ((attribs & UnixFileMode.UserExecute) == 0)
+                            attribs |= UnixFileMode.UserExecute;
+                        if ((attribs & UnixFileMode.GroupExecute) == 0)
+                            attribs |= UnixFileMode.GroupExecute;
+                        if ((attribs & UnixFileMode.OtherExecute) == 0)
+                            attribs |= UnixFileMode.OtherExecute;
+                        try
+                        {
+                            File.SetUnixFileMode(path, attribs);
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+
                         var psi = new System.Diagnostics.ProcessStartInfo(path);
                         if (offline)
                             psi.Arguments = "-nohomedir -offline";
