@@ -42,6 +42,11 @@ namespace PQLauncher
 
             Settings.Load();
 
+            if (Platform.OSPlatform == PlatformValue.Windows)
+            {
+                ProtocolHandler.TryRegister();
+            }
+
             launcherConfig = new LauncherConfig(new Uri(Platform.LauncherConfigurationUrl));
 
             Task.Run(async () =>
@@ -73,6 +78,7 @@ namespace PQLauncher
         async Task<bool> LoadConfig()
         {
             Directory.CreateDirectory(Platform.ConfigurationPath);
+
             var downloaded = await launcherConfig.DownloadConfig();
             try
             {
