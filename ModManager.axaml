@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 Width="500"
+             x:Class="PQLauncher.ModManager">
+	<StackPanel>
+		<StackPanel Name="ManagerPanel" IsVisible="True">
+			<DataGrid IsReadOnly="True" Name="ModGrid" Height="200" AutoGenerateColumns="True" SelectionChanged="DataGrid_SelectionChanged"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<Button Margin="0,0,10,0" Name="OpenDirectoryBtn" Click="OpenDirectory_Click">Open Directory</Button>
+				<Button Margin="0,0,10,0" Name="RemoveMod" Click="RemoveMod_Click">Remove Mod</Button>
+				<Button Margin="0,0,10,0" Click="AddMod_Click">Add Mod</Button>
+				<Button Margin="0,0,0,0" Click="Done_Click">Done</Button>
+			</StackPanel>
+		</StackPanel>
+		<StackPanel Name="AddModPanel" IsVisible="False">
+			<DockPanel>
+				<Label DockPanel.Dock="Left" VerticalContentAlignment="Center">Config URL:</Label>
+				<TextBox DockPanel.Dock="Right" Name="ConfigUrlBox"></TextBox>
+			</DockPanel>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<Button Margin="0,0,10,0" Click="AddModConfirm_Click">Add</Button>
+				<Button Margin="0,0,0,0" Click="AddCancel_Click">Cancel</Button>
+			</StackPanel>
+		</StackPanel>
+	</StackPanel>
+</UserControl>

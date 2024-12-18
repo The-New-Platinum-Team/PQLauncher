@@ -37,7 +37,7 @@ namespace PQLauncher
             this.game = game;
         }
 
-        public async Task<bool> Update()
+        public async Task<bool> Update(bool ignoreCache)
         {
             var http = new HttpClient();
 
@@ -122,7 +122,7 @@ namespace PQLauncher
                     File.Copy(prefsFile, prefsFile + ".bak", true);
                 }
 
-                if (!Settings.ListingMD5.ContainsKey(game.name) || cachedListingMD5 != Settings.ListingMD5[game.name])
+                if (!Settings.ListingMD5.ContainsKey(game.name) || cachedListingMD5 != Settings.ListingMD5[game.name] || ignoreCache)
                 {
                     Logger?.Invoke(this, "Listing doesn't match, updating files.");
 

@@ -119,6 +119,18 @@ namespace PQLauncher
             ModSelector.Items.Add(new ComboBoxItem() { Content = defaultMod.title, Tag = defaultMod.name });
             ModSelector.SelectedIndex = 0;
 
+            // Add the rest of the mods
+            foreach (var mod in launcherConfig.mods)
+            {
+                if (mod.Key != defaultMod.name)
+                {
+                    ModSelector.Items.Add(new ComboBoxItem() { Content = mod.Value.title, Tag = mod.Key });
+                }
+            }
+
+            // Configure mods..
+            ModSelector.Items.Add(new ComboBoxItem() { Content = "Configure Mods...", Tag = "configure" });
+
             SettingsBusy.IsBusy = false;
 
             Task.Run(FetchHTTPEntries);
@@ -202,8 +214,25 @@ namespace PQLauncher
         {
             if (ModSelector != null && ModSelector.SelectedItem != null)
             {
-                currentMod = (string)((ComboBoxItem)ModSelector.SelectedItem).Tag;
-                Task.Run(FetchHTTPEntries);
+                if ((string)((ComboBoxItem)ModSelector.SelectedItem).Tag == "configure")
+                {
+                    ModSelector.SelectedItem = ModSelector.Items.Where(x => ((string)((ComboBoxItem)x).Tag) == currentMod).FirstOrDefault();
+
+                    var modManager = new ModManager(DialogManager, launcherConfig);
+                    modManager.RefreshMods += (object sender, EventArgs e) =>
+                    {
+                        PopulateEntries();
+                    };
+
+                    var dlg = DialogManager.CreateDialog();
+                    dlg.SetContent(modManager);
+                    dlg.TryShow();
+                }
+                else
+                {
+                    currentMod = (string)((ComboBoxItem)ModSelector.SelectedItem).Tag;
+                    Task.Run(FetchHTTPEntries);
+                }
             }
         }
 
@@ -247,7 +276,7 @@ namespace PQLauncher
             }
         }
 
-        private void Play_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        void DoPlayButton(bool fullUpdate)
         {
             if (currentMod != null && currentMod != "")
             {
@@ -282,7 +311,7 @@ namespace PQLauncher
                     });
                 };
                 Task.Run(async () => {
-                    var res = await updater.Update();
+                    var res = await updater.Update(fullUpdate);
 
                     OnMainThread(() =>
                     {
@@ -313,6 +342,11 @@ namespace PQLauncher
             }
         }
 
+        private void Play_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            DoPlayButton(false);
+        }
+
         void LaunchGame(bool offline)
         {
             if (currentMod != null && currentMod != "")
@@ -337,6 +371,64 @@ namespace PQLauncher
                     };
                     IsVisible = false;
                 }
+            }
+        }
+
+        private void FullUpdate_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            DoPlayButton(true);
+        }
+
+        private void Import_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            if (currentMod != null && currentMod != "")
+            {
+                Task.Run(async () =>
+                {
+                    var file = await StorageProvider.OpenFilePickerAsync(new Avalonia.Platform.Storage.FilePickerOpenOptions()
+                    {
+                        AllowMultiple = false,
+                        SuggestedStartLocation = await StorageProvider.TryGetFolderFromPathAsync(new Uri(Settings.InstallationPaths[currentMod])),
+                        Title = "Select the preferences file",
+                    });
+                    if (file.Count != 0)
+                    {
+                        using (var fileStream = await file.First().OpenReadAsync())
+                        {
+                            using (var sr = new StreamReader(fileStream))
+                            {
+                                var prefsData = await sr.ReadToEndAsync();
+                                // This needs to be appended to the existing prefs file
+
+                                var prefsPath = Path.Join(Settings.InstallationPaths[currentMod], launcherConfig.mods[currentMod].prefsfile.TrimStart('/'));
+                                var prefsDir = Path.GetDirectoryName(prefsPath);
+                                if (prefsDir != null)
+                                {
+                                    // Check if we can find the prefs file - case insensitive
+                                    var prefsFile = Directory.GetFiles(prefsDir, Path.GetFileName(prefsPath), new EnumerationOptions() { MatchCasing = MatchCasing.CaseInsensitive, RecurseSubdirectories = false }).FirstOrDefault();
+
+                                    // Append
+                                    if (prefsFile != null)
+                                    {
+                                        using (var writer = File.AppendText(prefsFile))
+                                        {
+                                            await writer.WriteLineAsync();
+                                            await writer.WriteAsync(prefsData);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Write new
+                                        using (var writer = File.CreateText(prefsPath))
+                                        {
+                                            await writer.WriteAsync(prefsData);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
             }
         }
     }
