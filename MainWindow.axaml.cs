@@ -23,6 +23,9 @@ namespace PQLauncher
         Updater updater;
         System.Diagnostics.Process gameProcess;
 
+        string[] gameLaunchArgs;
+        bool shouldLaunchGame = false;
+
         public static ISukiDialogManager DialogManager = new SukiDialogManager();
 
         public MainWindow()
@@ -44,6 +47,11 @@ namespace PQLauncher
 
             if (Platform.OSPlatform == PlatformValue.Windows)
             {
+                ProtocolHandler.TryParseArguments((args) =>
+                {
+                    shouldLaunchGame = true;
+                    gameLaunchArgs = args;
+                });
                 ProtocolHandler.TryRegister();
             }
 
@@ -134,6 +142,13 @@ namespace PQLauncher
             SettingsBusy.IsBusy = false;
 
             Task.Run(FetchHTTPEntries);
+
+            if (shouldLaunchGame)
+            {
+                shouldLaunchGame = false;
+                LaunchGame(false);
+                gameLaunchArgs = null;
+            }
         }
 
         private void OnMainThread(Action action)
@@ -357,7 +372,7 @@ namespace PQLauncher
                 var executablePath = launcherConfig.mods[currentMod].launchpath.TrimStart('/');
 
                 var fullPath = Path.Join(gamePath, executablePath);
-                gameProcess = Platform.LaunchGame(fullPath, offline);
+                gameProcess = Platform.LaunchGame(fullPath, offline, gameLaunchArgs);
                 if (gameProcess != null)
                 {
                     gameProcess.EnableRaisingEvents = true;

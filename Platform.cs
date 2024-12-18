@@ -102,7 +102,7 @@ namespace PQLauncher
             }
         }
 
-        public static System.Diagnostics.Process LaunchGame(string path, bool offline)
+        public static System.Diagnostics.Process LaunchGame(string path, bool offline, string[] args)
         {
             switch (OSPlatform)
             {
@@ -131,6 +131,10 @@ namespace PQLauncher
                         var psi = new System.Diagnostics.ProcessStartInfo(path);
                         if (offline)
                             psi.Arguments = "-offline";
+
+                        if (args != null)
+                            psi.Arguments += string.Join(' ', args);
+
                         psi.WorkingDirectory = Path.GetDirectoryName(path);
                         return System.Diagnostics.Process.Start(psi);
                     }
@@ -158,6 +162,10 @@ namespace PQLauncher
                             psi.Arguments = "-nohomedir -offline";
                         else
                             psi.Arguments = "-nohomedir";
+
+                        if (args != null)
+                            psi.Arguments += string.Join(' ', args);
+
                         psi.WorkingDirectory = Path.GetDirectoryName(path);
                         return System.Diagnostics.Process.Start(psi);
                     }
