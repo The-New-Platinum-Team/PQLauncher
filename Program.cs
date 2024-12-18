@@ -25,6 +25,7 @@ namespace PQLauncher
         [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(PlatformSpecificConverter<String>))]
         [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(PlatformSpecificConverter<Uri>))]
         [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(System.Reflection.Assembly))]
+        [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(ModManagerEntry))]
         public static void Main(string[] args) => BuildAvaloniaApp()
             .StartWithClassicDesktopLifetime(args);
 

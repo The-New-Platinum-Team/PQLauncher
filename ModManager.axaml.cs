@@ -10,6 +10,13 @@ using System.Threading.Tasks;
 
 namespace PQLauncher;
 
+public class ModManagerEntry
+{
+    public string ID { get; set; }
+    public string Name { get; set; }
+    public Uri URL { get; set; }
+}
+
 public partial class ModManager : UserControl
 {
     ISukiDialogManager dialogManager;
@@ -23,17 +30,17 @@ public partial class ModManager : UserControl
         dialogManager = dlgManager;
         this.launcherConfig = launcherConfig;
 
-        ModGrid.ItemsSource = Settings.InstalledMods.Select(x => new { ID = x.Key, Name = launcherConfig.mods[x.Key].title, URL = x.Value });
+        ModGrid.ItemsSource = Settings.InstalledMods.Select(x => new ModManagerEntry { ID = x.Key, Name = launcherConfig.mods[x.Key].title, URL = x.Value });
         RemoveMod.IsEnabled = false;
         OpenDirectoryBtn.IsEnabled = false;
     }
 
     private void OpenDirectory_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var sel = ModGrid.SelectedItem as dynamic;
+        var sel = ModGrid.SelectedItem as ModManagerEntry;
         if (sel != null)
         {
-            Settings.InstallationPaths.TryGetValue(sel.ID, out string path);
+            Settings.InstallationPaths.TryGetValue(sel?.ID, out string path);
             if (path != null)
             {
                 Platform.OpenDirectory(path.Replace("/", "\\"));
@@ -43,10 +50,10 @@ public partial class ModManager : UserControl
 
     private void RemoveMod_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        var sel = ModGrid.SelectedItem as dynamic;
+        var sel = ModGrid.SelectedItem as ModManagerEntry;
         if (sel != null)
         {
-            var modID = sel.ID;
+            var modID = sel?.ID;
             Settings.InstalledMods.Remove(modID);
             Settings.InstallationPaths.Remove(modID);
             launcherConfig.mods.Remove(modID);
@@ -102,7 +109,7 @@ public partial class ModManager : UserControl
 
     private void DataGrid_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
     {
-        var sel = ModGrid.SelectedItem as dynamic;
+        var sel = ModGrid.SelectedItem as ModManagerEntry;
         if (sel != null)
         {
             var modID = sel?.ID;
