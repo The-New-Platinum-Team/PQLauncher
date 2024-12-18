@@ -115,11 +115,17 @@ namespace PQLauncher
                 var prefsPath = Path.Join(Settings.InstallationPaths[game.name], game.prefsfile.TrimStart('/'));
                 var prefsDir = Path.GetDirectoryName(prefsPath);
                 // Check if we can find the prefs file - case insensitive
-                var prefsFile = Directory.GetFiles(prefsDir, Path.GetFileName(prefsPath), new EnumerationOptions() { MatchCasing = MatchCasing.CaseInsensitive, RecurseSubdirectories = false }).FirstOrDefault();
-                if (prefsFile != null)
+                try {
+                    var prefsFile = Directory.GetFiles(prefsDir, Path.GetFileName(prefsPath), new EnumerationOptions() { MatchCasing = MatchCasing.CaseInsensitive, RecurseSubdirectories = false }).FirstOrDefault();
+                    if (prefsFile != null)
+                    {
+                        Logger?.Invoke(this, $"Backing up preferences file {prefsFile}.");
+                        File.Copy(prefsFile, prefsFile + ".bak", true);
+                    }
+                } 
+                catch (Exception e)
                 {
-                    Logger?.Invoke(this, $"Backing up preferences file {prefsFile}.");
-                    File.Copy(prefsFile, prefsFile + ".bak", true);
+                     Logger?.Invoke(this, $"Failed to backup preferences file.");
                 }
 
                 if (!Settings.ListingMD5.ContainsKey(game.name) || cachedListingMD5 != Settings.ListingMD5[game.name] || ignoreCache)
@@ -137,6 +143,9 @@ namespace PQLauncher
             else
             {
                 Logger?.Invoke(this, "No game found; doing full update.");
+                // Ensure installation directory
+                Directory.CreateDirectory(Settings.InstallationPaths[game.name]);
+                InstallNew(game.listing.value);
             }
 
             ProgressUpdate?.Invoke(this, new UpdateProgress(4, 5));
@@ -198,13 +207,38 @@ namespace PQLauncher
                 var ourMD5 = GetMD5(a.Path);
                 if (ourMD5 != a.MD5)
                 {
-                    Logger?.Invoke(this, $"Discrepancy in file: {a.FileName} ({ourMD5} != {a.MD5})");
+                    if (ourMD5 != "")
+                        Logger?.Invoke(this, $"Discrepancy in file: {a.FileName} ({ourMD5} != {a.MD5})");
                     if (filesToUpdate.ContainsKey(a.package))
                     {
-                        filesToUpdate[a.package].Add(a);
+                        lock (filesToUpdate) {
+                            filesToUpdate[a.package].Add(a);
+                        }
                     }
                     else
                     {
+                        lock (filesToUpdate) {
+                            filesToUpdate[a.package] = new List<ListingEntry> { a };
+                        }
+                    }
+                }
+            });
+        }
+
+       void InstallNew(JObject listing)
+        {
+            var installPath = Settings.InstallationPaths[game.name];
+            var res = Parallel.ForEach(IterateFiles(listing, installPath, ""), (a, _) =>
+            {
+                if (filesToUpdate.ContainsKey(a.package))
+                {
+                    lock (filesToUpdate) {
+                        filesToUpdate[a.package].Add(a);
+                    }
+                }
+                else
+                {
+                    lock (filesToUpdate) {
                         filesToUpdate[a.package] = new List<ListingEntry> { a };
                     }
                 }
@@ -229,9 +263,12 @@ namespace PQLauncher
                                 var file = archive.GetEntry(entry.ActualPath.Replace("\\", "/"));
                                 if (file != null)
                                 {
-                                    Logger?.Invoke(this, $"Updating file {entry.FileName}.");
+                                    if (kvp.Value.Count < 100)
+                                        Logger?.Invoke(this, $"Updating file {entry.FileName}.");
                                     using (var fileStream = file.Open())
                                     {
+                                        // Ensure directory
+                                        Directory.CreateDirectory(Path.GetDirectoryName(entry.Path));
                                         using (var fs = File.OpenWrite(entry.Path))
                                         {
                                             await fileStream.CopyToAsync(fs);
@@ -297,7 +334,7 @@ namespace PQLauncher
                         builder.Append(b.ToString("x2").ToLower());
                 }
             }
-            catch (FileNotFoundException ex)
+            catch
             {
                 return "";
             }

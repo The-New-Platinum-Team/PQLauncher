@@ -1,0 +1,2 @@
+dotnet publish -r osx-arm64 --configuration Release -p:UseAppHost=true --self-contained true -p:PublishSingleFile=true
+mv bin/Release/net8.0/osx-arm64/publish/* "mac-dist/PQLauncher.app/Contents/MacOS/"

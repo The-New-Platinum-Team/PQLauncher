@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:sukiUi="clr-namespace:SukiUI.Controls;assembly=SukiUI"
 		xmlns:local="clr-namespace:PQLauncher;assembly=PQLauncher"
-        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="460" Width="600" Height="420" MinWidth="600" MinHeight="420" MaxHeight="420"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="460" Width="600" Height="440" MinWidth="600" MinHeight="420" MaxHeight="440"
         x:Class="PQLauncher.MainWindow"
         Title="PQLauncher" 
 		Name="MainWnd"

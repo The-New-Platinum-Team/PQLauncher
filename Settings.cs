@@ -55,7 +55,10 @@ namespace PQLauncher
             if (!InstalledMods.ContainsKey(config.name))
             {
                 InstalledMods.Add(config.name, configUri);
-                InstallationPaths.Add(config.name, Path.Join(Platform.DefaultInstallationPath, config.gamename));
+                var suffix = "";
+                if (Platform.OSPlatform == PlatformValue.MacOSX)
+                    suffix = ".app";
+                InstallationPaths.Add(config.name, Path.Join(Platform.DefaultInstallationPath, config.gamename + suffix));
                 Save();
             }
         }
