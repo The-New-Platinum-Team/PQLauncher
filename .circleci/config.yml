@@ -1,0 +1,49 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+orbs:
+    win: circleci/windows@4.1.1 # The Windows orb give you everything you need to start using the Windows executor.
+    macos: circleci/macos@2.5.1
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+jobs:
+  build:
+    macos:
+      xcode: 14.1.0 # Specify the Xcode version to use
+    resource_class: macos.m1.medium.gen1
+    environment:
+      HOMEBREW_NO_AUTO_UPDATE: 1
+      NPROC: 4
+      COMMIT_TAG: pipeline.git.tag
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "82:42:56:a0:57:43:95:4e:00:c0:8c:c1:7f:70:74:47"
+      - checkout:
+          path: ~/PQLauncher
+
+      - macos/install-rosetta
+      - run:
+          name: Install brew dependencies
+          command: |
+            brew install dotnet
+
+      - run:
+          name: Compile
+          command: |
+            cd ~/PQLauncher
+            chmod +x macbuild.sh
+            ./macbuild.sh
+            zip -r PQLauncher.zip mac-dist/
+
+      - store_artifacts:
+          path:  ~/PQLauncher/PQLauncher.zip 
+
+workflows:
+  build-mac:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /^\d+.\d+.\d+$/

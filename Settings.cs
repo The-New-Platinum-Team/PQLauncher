@@ -10,6 +10,19 @@ using PQLauncher.JsonTemplates;
 
 namespace PQLauncher
 {
+    internal class SettingsStruct
+    {
+        public required Dictionary<string, string> InstallationPaths;
+        public required Dictionary<string, Uri> InstalledMods;
+        public required Dictionary<string, string> ListingMD5;
+
+        public SettingsStruct()
+        {
+            
+        }
+    }
+
+
     internal class Settings
     {
         public static Dictionary<string, string> InstallationPaths { get; set; } = new Dictionary<string, string>();
@@ -21,7 +34,8 @@ namespace PQLauncher
             if (!File.Exists(Path.Join(Platform.ConfigurationPath, "settings.json")))
             {
                 // Create default settings
-                var json = JsonConvert.SerializeObject(new
+                Directory.CreateDirectory(Platform.ConfigurationPath);
+                var json = JsonConvert.SerializeObject(new SettingsStruct()
                 {
                     InstallationPaths = new Dictionary<string, string>(),
                     InstalledMods = new Dictionary<string, Uri>(),
@@ -32,20 +46,24 @@ namespace PQLauncher
             else
             {
                 var json = File.ReadAllText(Path.Join(Platform.ConfigurationPath, "settings.json"));
-                var settings = JsonConvert.DeserializeObject<JObject>(json);
-                InstallationPaths = settings["InstallationPaths"].ToObject<Dictionary<string, string>>();
-                InstalledMods = settings["InstalledMods"].ToObject<Dictionary<string, Uri>>();
-                ListingMD5 = settings["ListingMD5"].ToObject<Dictionary<string, string>>();
+                var settings = JsonConvert.DeserializeObject<SettingsStruct>(json);
+                if (settings != null)
+                {
+                    InstallationPaths = settings.InstallationPaths;
+                    InstalledMods = settings.InstalledMods;
+                    ListingMD5 = settings.ListingMD5;
+                }
             }
         }
 
         public static void Save()
         {
-            var json = JsonConvert.SerializeObject(new
+            Directory.CreateDirectory(Platform.ConfigurationPath);
+            var json = JsonConvert.SerializeObject(new SettingsStruct()
             {
-                InstallationPaths,
-                InstalledMods,
-                ListingMD5
+                InstallationPaths = InstallationPaths,
+                InstalledMods = InstalledMods,
+                ListingMD5 = ListingMD5
             });
             File.WriteAllText(Path.Join(Platform.ConfigurationPath, "settings.json"), json);
         }
