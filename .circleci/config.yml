@@ -28,7 +28,7 @@ jobs:
           name: Install brew dependencies
           command: |
             brew update
-            brew install dotnet@8
+            brew install dotnet --force-bottle
 
       - run:
           name: Compile
