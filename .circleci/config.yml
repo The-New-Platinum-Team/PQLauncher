@@ -27,6 +27,7 @@ jobs:
       - run:
           name: Install brew dependencies
           command: |
+            brew update
             brew install dotnet@8
 
       - run:
