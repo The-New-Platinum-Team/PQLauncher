@@ -269,15 +269,18 @@ namespace PQLauncher
                 Settings.InstallationPaths.TryGetValue(currentMod, out string path);
                 if (path != null)
                 {
-                    Settings.InstallationPaths.TryGetValue(currentMod, out string existingPath);
-                    Task.Run(async () =>
+                   Settings.InstallationPaths.TryGetValue(currentMod, out string existingPath);
+                   var startLoc = StorageProvider.TryGetFolderFromPathAsync(new Uri(existingPath));
+                   startLoc.Wait();
+                   var folderTask = StorageProvider.OpenFolderPickerAsync(new Avalonia.Platform.Storage.FolderPickerOpenOptions()
+                   {
+                       AllowMultiple = false,
+                       SuggestedStartLocation = startLoc.Result,
+                       Title = "Select the game folder",
+                   });
+                    folderTask.ContinueWith((t) =>
                     {
-                        var folder = await StorageProvider.OpenFolderPickerAsync(new Avalonia.Platform.Storage.FolderPickerOpenOptions()
-                        {
-                            AllowMultiple = false,
-                            SuggestedStartLocation = await StorageProvider.TryGetFolderFromPathAsync(new Uri(existingPath)),
-                            Title = "Select the game folder",
-                        });
+                        var folder = t.Result;
                         if (folder.Count != 0)
                         {
                             // Set the game folder
