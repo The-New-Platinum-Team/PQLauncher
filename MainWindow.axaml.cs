@@ -258,7 +258,7 @@ namespace PQLauncher
                 Settings.InstallationPaths.TryGetValue(currentMod, out string path);
                 if (path != null)
                 {
-                    Platform.OpenDirectory(path.Replace("/", "\\"));
+                    Platform.OpenDirectory(path);
                 }
             }
         }
@@ -401,14 +401,17 @@ namespace PQLauncher
         {
             if (currentMod != null && currentMod != "")
             {
-                Task.Run(async () =>
+                var folderPathTask = StorageProvider.TryGetFolderFromPathAsync(new Uri(Settings.InstallationPaths[currentMod]));
+                folderPathTask.Wait();
+                var fileTask = StorageProvider.OpenFilePickerAsync(new Avalonia.Platform.Storage.FilePickerOpenOptions()
                 {
-                    var file = await StorageProvider.OpenFilePickerAsync(new Avalonia.Platform.Storage.FilePickerOpenOptions()
-                    {
-                        AllowMultiple = false,
-                        SuggestedStartLocation = await StorageProvider.TryGetFolderFromPathAsync(new Uri(Settings.InstallationPaths[currentMod])),
-                        Title = "Select the preferences file",
-                    });
+                    AllowMultiple = false,
+                    SuggestedStartLocation = folderPathTask.Result,
+                    Title = "Select the preferences file",
+                });
+                fileTask.ContinueWith(async (t) =>
+                {
+                    var file = t.Result;
                     if (file.Count != 0)
                     {
                         using (var fileStream = await file.First().OpenReadAsync())

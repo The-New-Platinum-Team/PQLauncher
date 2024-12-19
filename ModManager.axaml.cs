@@ -43,7 +43,7 @@ public partial class ModManager : UserControl
             Settings.InstallationPaths.TryGetValue(sel?.ID, out string path);
             if (path != null)
             {
-                Platform.OpenDirectory(path.Replace("/", "\\"));
+                Platform.OpenDirectory(path);
             }
         }
     }

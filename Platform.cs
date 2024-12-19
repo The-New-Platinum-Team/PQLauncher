@@ -89,7 +89,7 @@ namespace PQLauncher
             switch (OSPlatform)
             {
                 case PlatformValue.Windows:
-                    System.Diagnostics.Process.Start("explorer.exe", path);
+                    System.Diagnostics.Process.Start("explorer.exe", path.Replace("/", "\\"));
                     break;
 
                 case PlatformValue.MacOSX:
