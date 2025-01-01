@@ -153,7 +153,7 @@ namespace PQLauncher
 
         private void OnMainThread(Action action)
         {
-            Dispatcher.UIThread.Post(action);
+            Dispatcher.UIThread.InvokeAsync(action);
         }
 
         async void FetchHTTPEntries()

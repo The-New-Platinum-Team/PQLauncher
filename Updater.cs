@@ -203,7 +203,8 @@ namespace PQLauncher
             var res = Parallel.ForEach(IterateFiles(listing, installPath, ""), (a, _) =>
             {
                 done += 1;
-                ProgressUpdate?.Invoke(this, new UpdateProgress(done, count));
+                DownloadProgressUpdate?.Invoke(this, new UpdateProgress(done, count));
+                ProgressUpdate?.Invoke(this, new UpdateProgress(3 * count + done, 5 * count));
                 var ourMD5 = GetMD5(a.Path);
                 if (ourMD5 != a.MD5)
                 {
@@ -247,6 +248,7 @@ namespace PQLauncher
 
         async Task UpdateFiles()
         {
+            var i = 0;
             foreach (var kvp in filesToUpdate)
             {
                 Logger?.Invoke(this, $"Getting patch {kvp.Key}.");
@@ -287,6 +289,9 @@ namespace PQLauncher
                 {
                     Logger?.Invoke(this, $"Failed to download package {kvp.Key}.");
                 }
+                i++;
+
+                ProgressUpdate?.Invoke(this, new UpdateProgress(4 * filesToUpdate.Count + i, 5 * filesToUpdate.Count));
             }
         }
 
@@ -323,6 +328,8 @@ namespace PQLauncher
         /// <returns>Hex string of the hash</returns>
         string GetMD5(string path)
         {
+            if (!File.Exists(path))
+                return "";
             //https://stackoverflow.com/a/827694
             StringBuilder builder = new StringBuilder();
             MD5 hasher = MD5.Create();
