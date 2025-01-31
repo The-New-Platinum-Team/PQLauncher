@@ -210,17 +210,12 @@ namespace PQLauncher
                 {
                     if (ourMD5 != "")
                         Logger?.Invoke(this, $"Discrepancy in file: {a.FileName} ({ourMD5} != {a.MD5})");
-                    if (filesToUpdate.ContainsKey(a.package))
+                    lock (filesToUpdate)
                     {
-                        lock (filesToUpdate) {
+                        if (filesToUpdate.ContainsKey(a.package))
                             filesToUpdate[a.package].Add(a);
-                        }
-                    }
-                    else
-                    {
-                        lock (filesToUpdate) {
+                        else
                             filesToUpdate[a.package] = new List<ListingEntry> { a };
-                        }
                     }
                 }
             });
@@ -231,17 +226,12 @@ namespace PQLauncher
             var installPath = Settings.InstallationPaths[game.name];
             var res = Parallel.ForEach(IterateFiles(listing, installPath, ""), (a, _) =>
             {
-                if (filesToUpdate.ContainsKey(a.package))
+                lock (filesToUpdate)
                 {
-                    lock (filesToUpdate) {
+                    if (filesToUpdate.ContainsKey(a.package))
                         filesToUpdate[a.package].Add(a);
-                    }
-                }
-                else
-                {
-                    lock (filesToUpdate) {
+                    else
                         filesToUpdate[a.package] = new List<ListingEntry> { a };
-                    }
                 }
             });
         }
@@ -273,7 +263,7 @@ namespace PQLauncher
                                         Directory.CreateDirectory(Path.GetDirectoryName(entry.Path));
                                         using (var fs = File.OpenWrite(entry.Path))
                                         {
-                                            await fileStream.CopyToAsync(fs);
+                                            fileStream.CopyTo(fs);
                                         }
                                     }
                                 }
