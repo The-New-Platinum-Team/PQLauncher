@@ -57,11 +57,34 @@ namespace PQLauncher
 
             launcherConfig = new LauncherConfig(new Uri(Platform.LauncherConfigurationUrl));
 
-            Task.Run(async () =>
+            _ = Task.Run(async () =>
             {
                 var loaded = await LoadConfig();
                 if (loaded)
                 {
+                    // Check if we need to update the launcher
+                    var md5 = Updater.GetMD5(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+                    if (launcherConfig.launchermd5 != md5)
+                    {
+                        OnMainThread(() =>
+                        {
+                            // Show popup
+                            var dlg = DialogManager.CreateDialog();
+                            dlg.SetTitle("Launcher Update Available");
+                            dlg.SetType(Avalonia.Controls.Notifications.NotificationType.Information);
+                            dlg.SetCanDismissWithBackgroundClick(false);
+                            dlg.SetContent("A new version of the launcher is available. Would you like to update now?");
+                            dlg.AddActionButton("Update", async _ =>
+                            {
+                                // Send them to main site: marbleblast.com
+                                await TopLevel.GetTopLevel(this).Launcher.LaunchUriAsync(new Uri("https://marbleblast.com/index.php/games/pq/category/10-pq"));
+                            }, true);
+                            dlg.AddActionButton("Later", _ => { }, true);
+
+                            dlg.TryShow();
+                        });
+                    }
+
                     OnMainThread(() =>
                     {
                         PopulateEntries();
@@ -162,6 +185,7 @@ namespace PQLauncher
             {
                 NewsBusy.IsBusy = true;
                 UpdatesBusy.IsBusy = true;
+                GameLocation.Content = "Game Location: " + Settings.InstallationPaths[currentMod];
             });
             var mod = launcherConfig.mods[currentMod];
             if (!mod.news.ready) await mod.news.Download();

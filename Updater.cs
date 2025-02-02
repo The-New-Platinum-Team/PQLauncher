@@ -316,7 +316,7 @@ namespace PQLauncher
         /// </summary>
         /// <param name="path">Path of the file</param>
         /// <returns>Hex string of the hash</returns>
-        string GetMD5(string path)
+        public static string GetMD5(string path)
         {
             if (!File.Exists(path))
                 return "";

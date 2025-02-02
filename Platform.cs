@@ -20,7 +20,7 @@ namespace PQLauncher
     {
         public static string DefaultGameConfigurationUrl = "https://marbleblast.com/pq/config/config.json";
 
-        public static string LauncherConfigurationUrl = "https://marbleblast.com/files/launcher/config.json";
+        public static string LauncherConfigurationUrl = "https://marbleblast.com/files/launcher/config-new.json";
 
         public static PlatformValue OSPlatform
         {

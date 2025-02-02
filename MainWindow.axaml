@@ -6,7 +6,7 @@
 		xmlns:local="clr-namespace:PQLauncher;assembly=PQLauncher"
         mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="460" Width="600" Height="440" MinWidth="600" MinHeight="420" MaxHeight="440"
         x:Class="PQLauncher.MainWindow"
-        Title="PQLauncher" 
+        Title="Marble Blast Launcher" 
 		Name="MainWnd"
 		>
 	<sukiUi:SukiWindow.Hosts>
