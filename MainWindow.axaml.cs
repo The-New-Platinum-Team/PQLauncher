@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
@@ -143,7 +144,7 @@ namespace PQLauncher
 
         void PopulateEntries()
         {
-            var defaultMod = launcherConfig.mods.First().Value;
+            var defaultMod = launcherConfig.mods["pq"];
             ModSelector.Items.Clear();
 
             // Add this to the mod selector
@@ -312,6 +313,8 @@ namespace PQLauncher
                             selectedFolder = selectedFolder.Replace("file:///", "");
                             Settings.InstallationPaths[currentMod] = selectedFolder;
                             Settings.Save();
+
+                            GameLocation.Content = "Game Location: " + Settings.InstallationPaths[currentMod];
                         }
                     });
                 }
@@ -330,25 +333,54 @@ namespace PQLauncher
                 UpdateProgress.Value = 0.0;
 
                 updater = new Updater(launcherConfig.mods[currentMod]);
+
+                bool w1 = false;
+                bool w2 = false;
+                bool w3 = false;
+                var logQueue = new StringBuilder();
+
                 updater.ProgressUpdate += (object sender, UpdateProgress progress) =>
                 {
+                    if (w1) return;
+                    w1 = true;
                     OnMainThread(() =>
                     {
+                        w1 = false;
                         DownloadProgress.Value = progress.progress * 100.0 / progress.total;
                     });
+
                 };
                 updater.DownloadProgressUpdate += (object sender, UpdateProgress progress) =>
                 {
+                    if (w2) return;
+                    w2 = true;
                     OnMainThread(() =>
                     {
+                        w2 = false;
                         UpdateProgress.Value = progress.progress * 100.0 / progress.total;
                     });
                 };
                 updater.Logger += (object sender, string message) =>
                 {
+                    if (w3)
+                    {
+                        lock (logQueue)
+                        {
+                            logQueue.AppendLine(message);
+                        }
+                        return;
+                    }
+                    w3 = true;
+                    var msg = "";
+                    lock (logQueue)
+                    {
+                        msg = logQueue.ToString() + message;
+                        logQueue.Clear();
+                    }
                     OnMainThread(() =>
                     {
-                        ConsoleBlock.Text += message + "\n";
+                        w3 = false;
+                        ConsoleBlock.Text += msg + "\n";
                         ConsoleScroll.ScrollToEnd();
                     });
                 };

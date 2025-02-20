@@ -261,10 +261,14 @@ namespace PQLauncher
                                     {
                                         // Ensure directory
                                         Directory.CreateDirectory(Path.GetDirectoryName(entry.Path));
-                                        using (var fs = File.OpenWrite(entry.Path))
+                                        using (var fs = File.Open(entry.Path, FileMode.Create))
                                         {
                                             fileStream.CopyTo(fs);
                                         }
+                                        // Ensure MD5 matches
+                                        var ourMD5 = GetMD5(entry.Path);
+                                        var theirMD5 = entry.MD5;
+                                        System.Diagnostics.Debug.Assert(ourMD5 == theirMD5);
                                     }
                                 }
                                 else
@@ -296,7 +300,7 @@ namespace PQLauncher
                     {
                         var md5 = jo.GetValue("md5").ToString();
                         var package = jo.GetValue("package").ToString();
-                        yield return new ListingEntry(key.Key, Path.Join(actualPath, key.Key), Path.Join(path, key.Key), md5, package + ".zip");
+                        yield return new ListingEntry(key.Key, Path.Join(actualPath, key.Key).Replace('\\', '/'), Path.Join(path, key.Key).Replace('\\', '/'), md5, package + ".zip");
                     }
                     else
                     {
