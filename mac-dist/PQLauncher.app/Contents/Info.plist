@@ -5,9 +5,9 @@
     <key>CFBundleIconFile</key>
     <string>PQ_icon.icns</string>
     <key>CFBundleIdentifier</key>
-    <string>com.marbleblast.pqlauncher</string>
+    <string>com.tekannabrand.stopxlauncher</string>
     <key>CFBundleName</key>
-    <string>PlatinumQuest Launcher</string>
+    <string>STOP DeluXe Launcher</string>
     <key>CFBundleVersion</key>
     <string>1.0.0</string>
     <key>LSMinimumSystemVersion</key>

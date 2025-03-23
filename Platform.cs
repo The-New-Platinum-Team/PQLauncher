@@ -18,9 +18,9 @@ namespace PQLauncher
 
     internal class Platform
     {
-        public static string DefaultGameConfigurationUrl = "https://marbleblast.com/pq/config/config.json";
+        public static string DefaultGameConfigurationUrl = "https://dl.tekannabrand.org/config/config.json";
 
-        public static string LauncherConfigurationUrl = "https://marbleblast.com/files/launcher/config-new.json";
+        public static string LauncherConfigurationUrl = "https://dl.tekannabrand.org/config/launcher.json";
 
         public static PlatformValue OSPlatform
         {
@@ -45,10 +45,10 @@ namespace PQLauncher
                 switch (OSPlatform)
                 {
                     case PlatformValue.Windows:
-                        return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".mblaunchercache");
+                        return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".stopxlaunchercache");
 
                     default:
-                        return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".mblaunchercache");
+                        return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".stopxlaunchercache");
                 }
             }
         }

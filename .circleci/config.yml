@@ -36,10 +36,10 @@ jobs:
             cd ~/PQLauncher
             chmod +x macbuild.sh
             ./macbuild.sh
-            zip -r PQLauncher.zip mac-dist/
+            zip -r STOPXLauncher.zip mac-dist/
 
       - store_artifacts:
-          path:  ~/PQLauncher/PQLauncher.zip 
+          path:  ~/PQLauncher/STOPXLauncher.zip 
 
 workflows:
   build-mac:

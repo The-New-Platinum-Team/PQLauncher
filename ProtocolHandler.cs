@@ -15,9 +15,9 @@ namespace PQLauncher
         {
             var currentPath = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
 
-            var regKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\Classes\\platinumquest");
-            regKey.SetValue(null, "platinumquest URI");
-            regKey.SetValue("Content Type", "application/x-platinumquest");
+            var regKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software\\Classes\\stopx");
+            regKey.SetValue(null, "stopx URI");
+            regKey.SetValue("Content Type", "application/x-stopx");
             regKey.SetValue("URL Protocol", "");
 
             var subKey = regKey.CreateSubKey("shell\\open\\command");
@@ -33,9 +33,9 @@ namespace PQLauncher
             {
                 foreach (var arg in args)
                 {
-                    if (arg.StartsWith("platinumquest://"))
+                    if (arg.StartsWith("stopx://"))
                     {
-                        var cmd = arg.Substring("platinumquest://".Length);
+                        var cmd = arg.Substring("stopx://".Length);
                         if (cmd.IndexOf('/') != -1)
                         {
                             var split = cmd.Split('/');

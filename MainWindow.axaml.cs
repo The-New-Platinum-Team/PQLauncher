@@ -78,7 +78,7 @@ namespace PQLauncher
                             dlg.AddActionButton("Update", async _ =>
                             {
                                 // Send them to main site: marbleblast.com
-                                await TopLevel.GetTopLevel(this).Launcher.LaunchUriAsync(new Uri("https://marbleblast.com/index.php/games/pq/category/10-pq"));
+                                await TopLevel.GetTopLevel(this).Launcher.LaunchUriAsync(new Uri("https://tekannabrand.org"));
                             }, true);
                             dlg.AddActionButton("Later", _ => { }, true);
 
@@ -144,7 +144,7 @@ namespace PQLauncher
 
         void PopulateEntries()
         {
-            var defaultMod = launcherConfig.mods["pq"];
+            var defaultMod = launcherConfig.mods["stopx"];
             ModSelector.Items.Clear();
 
             // Add this to the mod selector
