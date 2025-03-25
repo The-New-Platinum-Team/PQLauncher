@@ -161,7 +161,7 @@ namespace PQLauncher
             }
 
             // Configure mods..
-            ModSelector.Items.Add(new ComboBoxItem() { Content = "Configure Mods...", Tag = "configure" });
+            // ModSelector.Items.Add(new ComboBoxItem() { Content = "Configure Mods...", Tag = "configure" });
 
             SettingsBusy.IsBusy = false;
 
