@@ -42,7 +42,9 @@ jobs:
           command: |
              npm install -g create-dmg
              cd ~/PQLauncher/mac-dist
+             xattr -rc PQLauncher.app
              xattr -dr com.apple.quarantine PQLauncher.app
+             codesign --deep -fs - "PQLauncher.app"
              create-dmg --dmg-title="STOP DeluXe" PQLauncher.app || true
 
       - store_artifacts:
