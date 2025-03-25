@@ -42,7 +42,7 @@ jobs:
           command: |
              npm install -g create-dmg
              cd ~/PQLauncher/mac-dist
-             create-dmg --dmg-title="STOP DeluXe" STOPXLauncher.dmg PQLauncher.app || true
+             create-dmg --dmg-title="STOP DeluXe" PQLauncher.app || true
 
       - store_artifacts:
           path:  ~/PQLauncher/mac-dist/STOPXLauncher.dmg 
