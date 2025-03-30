@@ -61,7 +61,7 @@
 							<Label Name="GameLocation" Grid.Column="0" Grid.Row="0" VerticalContentAlignment="Center">Game Location:</Label>
 							<Label Grid.Column="0" Grid.Row="1" VerticalContentAlignment="Center">Open Game Files:</Label>
 							<Label Grid.Column="0" Grid.Row="2" VerticalContentAlignment="Center">Run Full Update:</Label>
-							<Label Grid.Column="0" Grid.Row="3" VerticalContentAlignment="Center">Import Preferences:</Label>
+							<Label Grid.Column="0" Grid.Row="3" VerticalContentAlignment="Center">Import User Profile:</Label>
 							<Button Name="GameLocationChange" Grid.Column="1" Grid.Row="0" Width="100" Height="35" HorizontalContentAlignment="Center" Classes="Outlined Rounded" FontSize="13" Click="ChangeGameLocation_Click">Change</Button>
 							<Button Name="OpenGameFiles" Grid.Column="1" Grid.Row="1" Width="100" Height="35" HorizontalContentAlignment="Center" Classes="Outlined Rounded" FontSize="13" Click="OpenGame_Click">Open</Button>
 							<Button Name="RunFullUpdate" Grid.Column="1" Grid.Row="2" Width="100" Height="35" HorizontalContentAlignment="Center" Classes="Outlined Rounded" FontSize="13" Click="FullUpdate_Click">Update</Button>

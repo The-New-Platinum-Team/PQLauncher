@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -172,6 +173,43 @@ namespace PQLauncher
                 shouldLaunchGame = false;
                 LaunchGame(false);
                 gameLaunchArgs = null;
+            }
+
+            if (!Settings.ProfileRestored && Platform.OSPlatform == PlatformValue.Windows)
+            {
+                // Check if we had previously installed the game
+                var oldLoc = ProtocolHandler.GetOldInstallLocation();
+                if (oldLoc != null)
+                {
+                    var cookieLoc = Settings.GetCookieLocation(oldLoc);
+                    if (cookieLoc != null)
+                    {
+                        // Show dialog about importing old prefs
+
+                        OnMainThread(() =>
+                        {
+                            // Show popup
+                            var dlg = DialogManager.CreateDialog();
+                            dlg.SetTitle("Old Install Detected");
+                            dlg.SetType(Avalonia.Controls.Notifications.NotificationType.Information);
+                            dlg.SetCanDismissWithBackgroundClick(false);
+                            dlg.SetContent("We have detected a previous installation of STOP DeluXe on your machine, would you like to restore your progression from it?");
+                            dlg.AddActionButton("Restore", async d =>
+                            {
+                                // Just restore from cookies
+                                Directory.CreateDirectory(Path.Join(Settings.InstallationPaths["stopx"], "common", "client"));
+                                // Copy 
+                                File.Copy(cookieLoc, Path.Join(Settings.InstallationPaths["stopx"], "common", "client", "user.cookie"), true);
+                                d.Dismiss();
+                                Settings.ProfileRestored = true;
+                                Settings.Save();
+                            }, false);
+                            dlg.AddActionButton("No", _ => { }, true);
+
+                            dlg.TryShow();
+                        });
+                    }
+                }
             }
         }
 
@@ -463,46 +501,19 @@ namespace PQLauncher
                 {
                     AllowMultiple = false,
                     SuggestedStartLocation = folderPathTask.Result,
-                    Title = "Select the preferences file",
+                    Title = "Select the user.cookies file",
                 });
                 fileTask.ContinueWith(async (t) =>
                 {
                     var file = t.Result;
                     if (file.Count != 0)
                     {
-                        using (var fileStream = await file.First().OpenReadAsync())
+                        var f = file.First();
+                        if (f.Name.EndsWith(".cookie"))
                         {
-                            using (var sr = new StreamReader(fileStream))
-                            {
-                                var prefsData = await sr.ReadToEndAsync();
-                                // This needs to be appended to the existing prefs file
-
-                                var prefsPath = Path.Join(Settings.InstallationPaths[currentMod], launcherConfig.mods[currentMod].prefsfile.TrimStart('/'));
-                                var prefsDir = Path.GetDirectoryName(prefsPath);
-                                if (prefsDir != null)
-                                {
-                                    // Check if we can find the prefs file - case insensitive
-                                    var prefsFile = Directory.GetFiles(prefsDir, Path.GetFileName(prefsPath), new EnumerationOptions() { MatchCasing = MatchCasing.CaseInsensitive, RecurseSubdirectories = false }).FirstOrDefault();
-
-                                    // Append
-                                    if (prefsFile != null)
-                                    {
-                                        using (var writer = File.AppendText(prefsFile))
-                                        {
-                                            await writer.WriteLineAsync();
-                                            await writer.WriteAsync(prefsData);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        // Write new
-                                        using (var writer = File.CreateText(prefsPath))
-                                        {
-                                            await writer.WriteAsync(prefsData);
-                                        }
-                                    }
-                                }
-                            }
+                            // Copy it to the game folder
+                            Directory.CreateDirectory(Path.Join(Settings.InstallationPaths["stopx"], "common", "client"));
+                            File.Copy(f.Path.LocalPath, Path.Join(Settings.InstallationPaths["stopx"], "common", "client", "user.cookie"), true);
                         }
                     }
                 });
