@@ -38,8 +38,18 @@ jobs:
             ./macbuild.sh
             zip -r PQLauncher.zip mac-dist/
 
+      - run:
+          name: Package
+          command: |
+             npm install -g create-dmg
+             cd ~/PQLauncher/mac-dist
+             xattr -rc PQLauncher.app
+             xattr -dr com.apple.quarantine PQLauncher.app
+             codesign --deep -fs - "PQLauncher.app"
+             create-dmg --dmg-title="PlatinumQuest" PQLauncher.app || true
+
       - store_artifacts:
-          path:  ~/PQLauncher/PQLauncher.zip 
+          path:  ~/PQLauncher/mac-dist/PlatinumQuest Launcher 1.0.dmg 
 
 workflows:
   build-mac:
