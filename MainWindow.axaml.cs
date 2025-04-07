@@ -45,8 +45,6 @@ namespace PQLauncher
 
             DialogHost.Manager = DialogManager;
 
-            Settings.Load();
-
             if (Platform.OSPlatform == PlatformValue.Windows)
             {
                 ProtocolHandler.TryParseArguments((args) =>

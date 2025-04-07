@@ -13,9 +13,18 @@ namespace PQLauncher
 
         public override void OnFrameworkInitializationCompleted()
         {
+            Settings.Load();
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow();
+                if (Settings.LicenseAccepted)
+                {
+                    desktop.MainWindow = new MainWindow();
+                } 
+                else
+                {
+                    desktop.MainWindow = new LicenseWindow();
+                }
             }
 
             base.OnFrameworkInitializationCompleted();

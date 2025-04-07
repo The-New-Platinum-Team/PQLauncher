@@ -1,0 +1,307 @@
+TEKANNABRAND Inc.
+END USER LICENSE AGREEMENT
+STOP DeluXe
+
+LAST UPDATED: April 4, 2025 @ 10:02 PST (UTC-8)
+REDISTRIBUTION NOT PERMITTED EXCEPT AS SPECIFICALLY PROVIDED BELOW
+
+Software License for STOP DeluXe
+By installing and using this Game, you agree to abide by the following conditions of its use listed here and otherwise in the game contents.
+
+IMPORTANT -- READ CAREFULLY: This License Agreement for Stop DeluXe ("Game") is a legal agreement between you (either an individual or an entity) and Tekannabrand, Incorporated - the developer of the Game (collectively "Tekannabrand") - by launching the STOP DeluXe Player (including, but not limited to: Installing, having, copying, running this Game), you agree to be bound by the terms of this License Agreement.  If you do not agree to the terms of this License Agreement, you will not install or use this Game until you accept this usage agreement.
+
+EXCEPT AS SPECIFICALLY PROVIDED BELOW, THE TERMS OF THIS LICENSE AGREEMENT APPLY TO ALL VERSIONS OF THE GAME:
+
+INTRODUCTION
+Thank you for your interest in Tekannabrand Incorporated's modification, STOP DeluXe. We know that agreements aren't fun to read nor do most people look through every sentence to begin with, but we want people to realize that our work is very important to us and we want to help you understand why by letting you know what you may do and cannot do with our Services. Our intent isn't to be autocratic, but to make sure you abide by this legal agreement and get the most stable latest version - we highly advise you not download an older or modified version as Tekannabrand will not support it - because older releases of the game will not be supported by our team. All versions of our previous titles (Marble Blast STOP, Marble Blast STOP II, STOP II, collectively "Previous Releases") are also unsupported. This Game is the core for how our web, server and the Game work in their entirety. STOP DeluXe is the only official Tekannabrand modification. As of 2025, our revived edition of the game should help make this more clear. All this being said, please read this entire document very carefully.
+
+TABLE OF CONTENTS:
+1. Grant of License
+2. Distribution of Modification
+3. Limitations
+4. Original Content
+5. Modified Content
+6. Rules Adhered Within Our Services
+7. Thank You
+8. Disclaimer
+9. Key Terms
+10. Additional Plug-ins
+
+// -----------------------------------------
+
+1. GRANT OF LICENSE.
+	(a) Tekannabrand hereby grants to you an exclusive license to use the Game and its services, provided you:
+		(i) Adhere to all warnings and disclaimers provided wherein.
+		(ii) Never sell, trade, or share your User Profile with anyone.
+		(iii) Give credit to the creators of the new engine so if you happen to use it yourself, which is required, shown in section 3d.
+
+// -----------------------------------------
+
+2. DISTRIBUTION OF MODIFICATION
+	(a) The work that helped produce STOP DeluXe is the intellectual property of its original authors (Tekannabrand Incorporated [2016-2025], Whirligig Studios [2016-2019], GarageGames [2002-2006]).
+		(i) Please be aware that we are NOT a "fork" of PlatinumQuest and will never be involved with, in any part or whole, of that modification or its Services.
+	(b) Game may not be redistributed, copied, reproduced or offered for download from unauthorized web sites either in whole or in part without permission of Tekannabrand, Incorporated. Marble Blast is currently owned by InstantAction (IAC), thus this modification may never be sold directly - see articles and sections 2cd, 3b, and 4a.
+		(i) The only authorized web sites where this game may be distributed are Tekannabrand.org, Itch.io and GameBanana.
+	(c) You may not distribute game clients or players on physical devices (including but not limited to USB disks and CD-ROM).
+		(i) IMPORTANT: Selling STOPX breaks a legal agreement between InstantAction and you. Do not do it.
+	(d) If STOP DeluXe is distributed elsewhere, the following is required to be posted on said page: STOP DeluXe, "STOPX", assets, characters, logos, names, and all related indications are trademarks of Tekannabrand, Inc., unless otherwise noted of belonging to InstantAction. ©2020-2025. Tekannabrand Inc.
+		(i) Failure to comply with adding creditors to your distribution of Game on your web site may result in page report, page removal, or web site termination.
+
+// -----------------------------------------
+
+3. LIMITATIONS
+(a) No limitations or restrictions for Game installation are provided at this time. Unless specifically provided by your institution or workplace, you may install STOP DeluXe anywhere on your computer. For example, if your academic institution forbids STOP DeluXe to be installed on a school computer, you are responsible for adhering to the rules of your institution, including but not limited to a student handbook or I.T. Policy. Tekannabrand is not responsible if you happen to get into trouble for installing our services to unauthorized digital devices.
+(b) Across all versions, select users tested the Game for months during development. In addition the closed testing period was conducted by people who were not involved in its development or originally involved with Marble Blast whatsoever. However, everything may not have been caught - we appreciate anything you find that may improve the Game - the authors of this Game cannot be held responsible for any damage caused to your computer or the software as a result of its use. Everything has wear and tear; the software is provided AS-IS and you agree and are aware that your use of the Game is at your own risk.  
+(c) STOP DeluXe is and will never be for sale - it is a free game - however, it is now possible to donate to our mission and our cause. You may only donate to support Tekannabrand. All proceedings are meant to go towards development of future projects and content along with hiring of workers for new projects. You may earn perks and benefits by donating to us on Kofi, depending on what you select.
+(d) If you wish to use the new 64 bit engine for your own projects, please copy and paste this excerpt in your license or changelog file:
+
+//------------------------//
+// OpenMBG
+//------------------------//
+
+Based on Torque Game Engine MIT by Mangofusion, developed by RandomityGuy. Tested by Jiquor.
+
+We do not own parts of the engine code that are still licensed by GarageGames and owned by InstantAction.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, merge, distribute, and/or sublicense the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above credits and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+
+
+
+// -----------------------------------------
+
+4. ORIGINAL CONTENT
+(a) STOP DeluXe is a total-conversion modification of an old game called "Marble Blast". (GarageGames/InstantAction). Thus, nobody cannot directly sell it. Attempting to sell the game breaks an agreement between you and GarageGames/InstantAction which is strictly against copyright law.
+(b) We aren't allowed to directly sell this Game, nor is anyone else allowed to either. If you have paid money for this modification, you need to report the offender(s) to Tekannabrand by e-mail (info@mail.tekannabrand.org), issue a charge-back, and report the fraudulent transaction to law enforcement especially in the case of card or identity theft. Tekannabrand is NOT responsible for unfortunate circumstances resulted in third-party involvement within.
+(c) This modification contains code that were present in the beta and final public releases of all original InstantAction/GarageGames Marble Blast editions & versions. See article 5 for more information.
+(d) Tekannabrand takes no credit for original code governed of GarageGames' original work. Such original is therefore employed on the basis that everything distributed through Marble Blast, Marble Blaster, and Marble Blast Gold may be used despite them not being in the public domain.
+(e) Before STOP DeluXe 2.4uX, various assets that we once repurposed are the original work of Tekannabrand, Whirligig Studios, and ROBLOX. However, as part of our brand new update, we are currently getting rid of those assets and creating our own in waves. As such, the remaining 20-30 assets from other sources the property of their original authors and may not be reproduced, redistributed, or sold.
+	(i) This includes, but isn't limited to, sharing assets on web sites like The Models Resource. Sharing assets like Stages, 3D models, and otherwise is strictly not allowed and will be subject to report and possible deletion.
+	(ii) Your attention to this is drawn on article 2 of this License Agreement.
+
+// -----------------------------------------
+
+5. MODIFIED CONTENT
+(a) Tekannabrand takes credit for what we have created as part of STOP DeluXe. All content provided to help make the game work may never be reverse engineered, modified, or distributed. 
+(b) All assets, textures, game maps, graphics, codebase, logos, names, and all related indications are trademarks of Tekannabrand, Inc., unless otherwise noted of belonging to InstantAction.
+	(i) As noted previously, you will not port any content or files from STOP DeluXe to other sources or games (also known as "ripping"). Please do not ask the team for any assets or files. For business to business contact, however, contact us if something we have made interests you. We will be happy to do our best in working with you.
+(c) The name STOPX (STOP DeluXe) is in no way affiliated with, supported by or in any other way shape or form related to InstantAction. Marble Blast, Marble Blaster & Marble Blast Gold are registered trademarks of GarageGames. Copyright: "© 2002-2006 GarageGames. All rights reserved."
+// -----------------------------------------
+
+6. RULES ADHERED WITHIN OUR SERVICES
+(a) No cheating; no one likes cheaters because they reduce the quality of play for those trying to achieve special roles and times on the Leaderboards, our web site, and on the STOP DeluXe Discord server. We've disabled many functions that encourage cheating for this purpose. (We personally still don't know why people believe leaving the stage editor and the console up is a great idea because they're prone to many vulnerabilities. I and tens of hundreds of fair players cannot emphasize this enough. We believe that anyone requesting them is trying to cheat.)
+(b) STOP DeluXe is a closed-door modification; this is a Marble Blast modification that does not support custom Worlds or assets. It disallows porting anything we made to other games, and disallows any in-game editing software. This modification is for playing, not testing and constructing. For testing, check out Marble Blast GOLD. For constructing and testing, check out PlatinumQuest. This Game is not a testing/construction environment, and must be treated as such as described in section a, of this article.
+(b) Verification is required; by installing this game, you agree that any and all #1 Leaderboard spots will automatically be sent to Tekannabrand's server for review, and all footage may be used for promotions and events. Please review our privacy policy carefully for what we collect, don't collect, share, and don't share.
+(c) Special roles; in order to obtain a STOPX Colored Role or Absolutist, you must be connected to our servers at all times and meet the minimum requirements. If you qualify for a Colored Role, e-mail us at info@mail.tekannabrand.org to start the process. Otherwise, verification for this perk may take about a week.
+(d) Please do not directly report individual cases of cheating to us. Instead, please use the Report feature, which is located throughout the game and our web site. You can use this feature to report records (that violate the rules or are out of sync/experiencing some bugs) or terms of service violations. If you abuse the Reporting system, which includes, but isn't limited to, berating STOPX staff, targeting a player, and false reporting, you will be banned or terminated from STOP DeluXe.
+(e) Anything not listed in this document is not an excuse for leeway for loopholes. Edge cases are up to the discretion of Tekannabrand. If you don't see something added in the license agreement or if you have a question, please contact us first. Remember: Tekannabrand has the final say for this agreement and the rules of the Game, not you.
+
+
+// -----------------------------------------
+
+7. THANK YOU
+(a) Tekannabrand appreciates you for reading this far - we know that most people tend to skip to the end and click through buttons to skip to the next step and don't bother reading this as it contains some crap, but when you realize what this license agreement has to say, we hope that you gain common sense and courtesy thereafter. Thank you also for playing this modification - your support makes us think our work is truly worthwhile. We're aware that there are some grumbles in the community about the modification so maybe this will clear some things up. We're hope you are amused, entertained, and energetic - this modification certainly requires it, especially for achieving difficult awards and some world records!
+
+// -----------------------------------------
+
+8. Disclaimer
+(a) This is a modification to an original game; STOP DeluXe is under fair use. The original [ Marble Blast ] and [ Marble Blaster ] and [ Marble Blast GOLD ] games were developed by InstantAction, GarageGames, and others; 2002-2006. Currently owned by InstantAction.
+(b) STOP DeluXe is part of the original Marble Blast software, and is hereby provided and presented as freeware. If someone is selling this game for actual money, and/or if they are providing it on another website and not giving the creator any credit for the game, please report abuse on that website so it can be taken down. You can also notify a staff member on the Discord server.
+(c) Playing this game has some external links such as a Miraheze Wiki, a Discord Server, Event Leaderboards, and more. BY PLAYING THIS MODIFICATION YOU AGREE THAT ACCESSING THESE LINKS IS AT YOUR OWN RISK.
+
+REMEMBER: IF YOU BOUGHT THE GAME FROM SOMEONE ELSE THAN Tekannabrand or JIQUOR, YOU HAVE BEEN SCAMMED, AND YOU MUST NOTIFY WHO IS SELLING THE GAME TO TEKANNABRAND INC.. OF THE WEBSITE THAT ARE SELLING THIS GAME/PROVIDING IT WITHOUT CREDIT.
+
+ADDITIONALLY: Whirligig Studios (Whirligig231) and RandomityGuy helped with the functionality, code and features of STOP DeluXe and STOP II. This message is to inform you that all previous works featured on the game currently are used with permission and are in no way intended to copy the author(s) of their work. Please do not redistribute, reverse engineer or duplicate their contents within the root files of STOP DeluXe.
+
+Sincerely,
+Tekannabrand Inc.
+
+Contact Tekannabrand:
+info@mail.tekannabrand.org (E-Mail Support)
+EkjfgWY (Discord Invite)
+Tekannabrand Feed#8786 (Support)
+
+// -----------------------------------------
+9. Key Terms
+	1. "Game" - meaning our project, STOP DeluXe, developed by Tekannabrand where some of the code base and engine work are owned by InstantAction, as well as the Marble Blast property owned by InstantAction/GarageGames
+	2. "Previous Releases" - meaning any of our older projects, Marble Blast STOP, Marble Blast STOP II, STOP II.
+	3. "Tekannabrand" - The startup company which developed STOP DeluXe and helped contribute to the 64 bit version of Marble Blast for all to enjoy.
+// -----------------------------------------
+10. Additional Plug-ins
+
+//------------------------//
+// MBExtender
+//------------------------//
+
+Copyright (c) 2022 The Platinum Team
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+
+//------------------------
+// curl
+//------------------------
+
+COPYRIGHT AND PERMISSION NOTICE
+
+Copyright (c) 1996 - 2017, Daniel Stenberg, <daniel@haxx.se>, and many
+contributors, see the THANKS file.
+
+All rights reserved.
+
+Permission to use, copy, modify, and distribute this software for any purpose with or without fee is hereby granted, provided that the above copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF THIRD PARTY RIGHTS. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Except as contained in this notice, the name of a copyright holder shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software without prior written authorization of the copyright holder.
+
+//------------------------
+// curlpp
+//------------------------
+
+Copyright (c) <2002-2004> <Jean-Philippe Barrette-LaPierre>
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files
+(cURLpp), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included
+in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+//------------------------
+// jsoncpp
+//------------------------
+
+The JsonCpp library's source code, including accompanying documentation,
+tests and demonstration applications, are licensed under the following
+conditions...
+
+The author (Baptiste Lepilleur) explicitly disclaims copyright in all
+jurisdictions which recognize such a disclaimer. In such jurisdictions,
+this software is released into the Public Domain.
+
+In jurisdictions which do not recognize Public Domain property (e.g. Germany as of 2010), this software is Copyright (c) 2007-2010 by Baptiste Lepilleur, and is released under the terms of the MIT License (see below).
+
+In jurisdictions which recognize Public Domain property, the user of this
+software may choose to accept it either as 1) Public Domain, 2) under the
+conditions of the MIT License (see below), or 3) under the terms of dual
+Public Domain/MIT License conditions described here, as they choose.
+
+The MIT License is about as close to Public Domain as a license can get, and is described in clear, concise terms at: http://en.wikipedia.org/wiki/MIT_License
+The full text of the MIT License follows:
+
+Copyright (c) 2007-2010 Baptiste Lepilleur
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+(END LICENSE TEXT)
+
+The MIT license is compatible with both the GPL and commercial
+software, affording one all of the rights of Public Domain with the
+minor nuisance of being required to keep the above copyright notice
+and license text in the source code. Note also that by accepting the
+Public Domain "license" you can re-license your copy using whatever
+license you like.
+
+//------------------------
+// SDL2
+//------------------------
+
+Simple DirectMedia Layer
+Copyright (C) 1997-2014 Sam Lantinga <slouken@libsdl.org>
+
+This software is provided 'as-is', without any express or implied
+warranty.  In no event will the authors be held liable for any damages
+arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must not
+   claim that you wrote the original software. If you use this software
+   in a product, an acknowledgment in the product documentation would be
+   appreciated but is not required.
+2. Altered source versions must be plainly marked as such, and must not be
+   misrepresented as being the original software.
+3. This notice may not be removed or altered from any source distribution.
+
+//------------------------
+// MIT License
+//------------------------
+
+Copyright (c) 2005 - 2015 G-Truc Creation
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+//------------------------
+// Torque3D
+//------------------------
+
+Copyright (c) 2012 GarageGames, LLC
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

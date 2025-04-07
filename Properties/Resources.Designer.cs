@@ -59,5 +59,24 @@ namespace PQLauncher.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TEKANNABRAND Inc.
+        ///END USER LICENSE AGREEMENT
+        ///STOP DeluXe
+        ///
+        ///LAST UPDATED: April 4, 2025 @ 10:02 PST (UTC-8)
+        ///REDISTRIBUTION NOT PERMITTED EXCEPT AS SPECIFICALLY PROVIDED BELOW
+        ///
+        ///Software License for STOP DeluXe
+        ///By installing and using this Game, you agree to abide by the following conditions of its use listed here and otherwise in the game contents.
+        ///
+        ///IMPORTANT -- READ CAREFULLY: This License Agreement for Stop DeluXe (&quot;Game&quot;) is a legal agreement between you (either an individual or an entity) and Tek [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string LICENSE {
+            get {
+                return ResourceManager.GetString("LICENSE", resourceCulture);
+            }
+        }
     }
 }

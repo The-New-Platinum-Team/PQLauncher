@@ -1,0 +1,46 @@
+<sukiUi:SukiWindow xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:sukiUi="clr-namespace:SukiUI.Controls;assembly=SukiUI"
+		xmlns:local="clr-namespace:PQLauncher;assembly=PQLauncher"
+        mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="460" Width="600" Height="440" MinWidth="600" MaxWidth="600" MinHeight="420" MaxHeight="440"
+        x:Class="PQLauncher.LicenseWindow"
+        Title="License"
+	    CanMaximize="False">
+	<StackPanel HorizontalAlignment="Stretch" Margin="0,20,20,0">
+		<ScrollViewer Height="330">
+			<TextBlock x:Name="LicenseText" xml:space="preserve" TextWrapping="Wrap" MaxWidth="500">Thanks for downloading STOP DeluXe!
+	Current Version: STOPX 2.0.0
+	Build 2.2uX (1.6.2)
+	This rerelease lasted from January 20, 2025 to April 5, 2025.
+
+	Hi. I'm Jiquor. Some of you might remember me. I left legacies behind in games I have been a part of for many years, such as ROBLOX, BrickPlanet, Marble Blast, and Pokémon GO. I created Tekannabrand and direct STOP DeluXe.
+
+	Thanks so much for taking time out of your valuable life to download our on-line product, free of charge. We have spent countless hours (and some days without sleep) working on this project since we started working on Marble Blast STOP II back in mid 2016. Since then, this game has seen two separate teams as the game rebranded from Marble Blast STOP II to STOP DeluXe seven years later. We've finally achieved the wonderful dream we've been working hard on implementing, STOP DeluXe, also known as STOPX. We are proud that STOP DeluXe became the first modification to get 64-bit version of the STOP DeluXe engine, which was something that has not been seen in ANY Marble Blast game until we achieved this goal in September 2024.
+
+	There are many features and hundreds of secrets to see in this game compared to any other Marble Blast game you've ever played, so take your time to explore around, and enjoy.
+
+	Tekannabrand thanks the following people with utmost gratitude:
+	RandomityGuy for the entire framework that lead up to STOPX. We sincerely can't thank you enough for bringing us on-line, and we can't thank you enough for making our project absolutely cool. Recently, you also helped bring the Mac version of the game to reality. Thanks so much!
+	FoxerTails, Perkidos, TSkater7000 - The awesome music and soundtrack composers. Without these people, this project would be next to nothing, honestly. These people are the core for what makes this modification amazing. Salute! (Rest in peace, Perkidos.)
+	ALL CONTRIBUTORS (Beta7X26, MintiChipz, Old Greg, et al.) - Our many contributors made contributions that really made this game sparkle, from 3D models to stage ideas, sound effects to Construction Zones, and more. Cheers to you all.
+
+	Thanks to these people who made the new Torque Engine for the hit marble rolling games "STOP DeluXe" and "Platinum Quest" possible!
+	RandomityGuy (Developer)
+	MangoFusion (Developer)
+	Jiquor (Tester/Bugs)
+
+	Thank you for downloading STOP DeluXe!
+	A project we've spent YEARS on, despite our busy lives.
+	The end is only the beginning...
+
+	Sincerely,
+	The STOP DeluXe Team
+	- Tekannabrand Inc.
+	Product Support: info@mail.tekannabrand.org
+			</TextBlock>
+		</ScrollViewer>
+		<Button HorizontalAlignment="Center" HorizontalContentAlignment="Center" Click="Button_Click" Name="NextButton" Margin="0,10,0,0">Next</Button>
+	</StackPanel>
+</sukiUi:SukiWindow>

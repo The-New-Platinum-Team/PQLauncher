@@ -9,10 +9,10 @@
     <PublishTrimmed>True</PublishTrimmed>
 	<IncludeNativeLibrariesForSelfExtract>True</IncludeNativeLibrariesForSelfExtract>
 	<ApplicationIcon>PQ_Icon.ico</ApplicationIcon>
-	<Product>Marble Blast Launcher</Product>
-	<Company>marbleblast.com</Company>
-	<Authors>marbleblast.com</Authors>
-	<Title>Marble Blast Launcher</Title>
+	<Product>STOP DeluXe Launcher</Product>
+	<Company>Tekannabrand</Company>
+	<Authors>Tekannabrand</Authors>
+	<Title>STOP DeluXe Launcher</Title>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="PQ_Icon.ico" />

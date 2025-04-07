@@ -16,6 +16,7 @@ namespace PQLauncher
         public required Dictionary<string, Uri> InstalledMods;
         public required Dictionary<string, string> ListingMD5;
         public required bool ProfileRestored;
+        public required bool LicenseAccepted;
 
         public SettingsStruct()
         {
@@ -30,6 +31,7 @@ namespace PQLauncher
         public static Dictionary<string, Uri> InstalledMods { get; set; } = new Dictionary<string, Uri>();
         public static Dictionary<string, string> ListingMD5 { get; set; } = new Dictionary<string, string>();
         public static bool ProfileRestored { get; set; } = false;
+        public static bool LicenseAccepted { get; set; } = false;
 
         public static void Load()
         {
@@ -43,6 +45,7 @@ namespace PQLauncher
                     InstalledMods = new Dictionary<string, Uri>(),
                     ListingMD5 = new Dictionary<string, string>(),
                     ProfileRestored = false,
+                    LicenseAccepted = false,
                 });
                 File.WriteAllText(Path.Join(Platform.ConfigurationPath, "settings.json"), json);
             }
@@ -56,6 +59,7 @@ namespace PQLauncher
                     InstalledMods = settings.InstalledMods;
                     ListingMD5 = settings.ListingMD5;
                     ProfileRestored = settings.ProfileRestored;
+                    LicenseAccepted = settings.LicenseAccepted;
                 }
             }
         }
@@ -69,6 +73,7 @@ namespace PQLauncher
                 InstalledMods = InstalledMods,
                 ListingMD5 = ListingMD5,
                 ProfileRestored = ProfileRestored,
+                LicenseAccepted = LicenseAccepted,
             });
             File.WriteAllText(Path.Join(Platform.ConfigurationPath, "settings.json"), json);
         }
