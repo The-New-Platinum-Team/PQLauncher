@@ -42,10 +42,11 @@ jobs:
           command: |
              npm install -g create-dmg
              cd ~/PQLauncher/mac-dist
-             xattr -rc PQLauncher.app
-             xattr -dr com.apple.quarantine PQLauncher.app
-             codesign --deep -fs - "PQLauncher.app"
-             create-dmg --dmg-title="STOP DeluXe" PQLauncher.app || true
+             mv PQLauncher.app "STOP DeluXe Player.app"
+             xattr -rc "STOP DeluXe Player.app"
+             xattr -dr com.apple.quarantine "STOP DeluXe Player.app"
+             codesign --deep -fs - "STOP DeluXe Player.app"
+             create-dmg --dmg-title="STOP DeluXe" "STOP DeluXe Player.app" || true
 
       - store_artifacts:
           path:  ~/PQLauncher/mac-dist/STOP DeluXe Launcher 1.0.dmg 
