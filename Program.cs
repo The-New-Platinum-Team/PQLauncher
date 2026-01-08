@@ -32,9 +32,23 @@ namespace PQLauncher
 
         // Avalonia configuration, don't remove; also used by visual designer.
         public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .WithInterFont()
-                .LogToTrace();
+        {
+            // Setup AppBuilder with extensions
+            AppBuilder appBuilder = AppBuilder.Configure<App>()
+                                    .WithInterFont()
+                                    .LogToTrace();
+            try
+            {
+                // Try to configure the builder with suggested platform default
+                return appBuilder.UsePlatformDetect();
+            }
+            catch (System.NotImplementedException ex) when (ex.Message.Contains("WinUIComposition"))
+            {
+                // Proton (Wine) does not currently support WinUIComposition 
+                // If this happens, retry again but specify to just use Skia
+                // https://github.com/The-New-Platinum-Team/PQLauncher/issues/1
+                return appBuilder.UseSkia();
+            }
+        }
     }
 }
