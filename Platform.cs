@@ -47,8 +47,11 @@ namespace PQLauncher
                     case PlatformValue.Windows:
                         return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".mblaunchercache");
 
-                    default:
+                    case PlatformValue.MacOSX:
                         return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".mblaunchercache");
+
+                    default:
+                        return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".walaunchercache");
                 }
             }
         }
@@ -66,7 +69,7 @@ namespace PQLauncher
                         return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Applications");
 
                     default:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                        return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 }
             }
         }
