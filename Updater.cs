@@ -42,6 +42,14 @@ namespace PQLauncher
             var http = new HttpClient();
 
             /*
+             * Step 0: Ensure VCRedist if we are on windows
+             */
+            if (Platform.OSPlatform == PlatformValue.Windows)
+            {
+                await Platform.EnsureVCRedistInstalled(Logger);
+            }
+
+            /*
 			 * Step 1: Download the package listing
 			 */
             ProgressUpdate?.Invoke(this, new UpdateProgress(0, 5));
