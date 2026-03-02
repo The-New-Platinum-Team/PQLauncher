@@ -50,11 +50,61 @@ jobs:
 
       - store_artifacts:
           path:  ~/PQLauncher/mac-dist/PlatinumQuest Launcher 1.0.dmg 
+  build-linux:
+      docker:
+          - image: cimg/base:stable
+      steps:
+          - checkout:
+                path: ~/PQLauncher
+          - run:
+                name: Install .NET SDK 8.0
+                command: |
+                    set -euxo pipefail
+                    curl -sSL https://dot.net/v1/dotnet-install.sh -o dotnet-install.sh
+                    chmod +x dotnet-install.sh
+                    ./dotnet-install.sh --channel 8.0
+                    echo 'export DOTNET_ROOT="$HOME/.dotnet"' >> "$BASH_ENV"
+                    echo 'export PATH="$DOTNET_ROOT:$DOTNET_ROOT/tools:$PATH"' >> "$BASH_ENV"
+          - run:
+                name: Compile Linux
+                command: |
+                    cd ~/PQLauncher
+                    chmod +x linuxbuild.sh
+                    ./linuxbuild.sh
+          - store_artifacts:
+                path: ~/PQLauncher/linux-dist/PQLauncher-linux-x64.tar.gz
+
+  build-windows:
+      executor: win/default
+      steps:
+          - checkout:
+                path: C:\Users\circleci\project
+          - run:
+                name: Install .NET SDK 8.0
+                shell: powershell.exe
+                command: |
+                    choco install dotnet-8.0-sdk -y --no-progress
+          - run:
+                name: Compile Windows
+                shell: powershell.exe
+                command: |
+                    cd C:\Users\circleci\project
+                    powershell -ExecutionPolicy Bypass -File .\winbuild.ps1
+          - store_artifacts:
+                path: C:\Users\circleci\project\win-dist\PQLauncher-windows-x64.zip
 
 workflows:
-  build-mac:
-    jobs:
-      - build:
-          filters:
-            tags:
-              only: /^\d+.\d+.\d+$/
+    build-mac:
+        jobs:
+            - build:
+                  filters:
+                      tags:
+                          only: /^\d+.\d+.\d+$/
+            - build-linux:
+                  filters:
+                      tags:
+                          only: /^\d+.\d+.\d+$/
+            - build-windows:
+                  filters:
+                      tags:
+                          only: /^\d+.\d+.\d+$/
