@@ -6,7 +6,6 @@ DOTNET_CLI_TELEMETRY_OPTOUT=1 dotnet publish -r linux-x64 --configuration Releas
 
 mkdir -p linux-dist/PQLauncher
 mv bin/Release/net8.0/linux-x64/publish/* "linux-dist/PQLauncher/"
-mv "linux-dist/PQLauncher/PQLauncher" "linux-dist/PQLauncher/PQLauncher"
 rm "linux-dist/PQLauncher/PQLauncher.pdb"
 
 tar -czf linux-dist/PQLauncher-linux-x64.tar.gz -C linux-dist PQLauncher
