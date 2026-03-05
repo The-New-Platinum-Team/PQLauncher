@@ -20,7 +20,7 @@ namespace PQLauncher.JsonTemplates
             try
             {
                 IDictionary<String, T> dict = serializer.Deserialize<IDictionary<String, T>>(reader);
-                var ourPlatform = Platform.PlatformToString(Platform.OSPlatform);
+                var ourPlatform = Platform.PlatformString();
                 return dict[ourPlatform];
             }
             catch (Exception e)
