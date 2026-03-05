@@ -7,6 +7,7 @@ using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PQLauncher.JsonTemplates;
+using System.Runtime.InteropServices;
 
 namespace PQLauncher
 {
@@ -18,7 +19,6 @@ namespace PQLauncher
 
         public SettingsStruct()
         {
-            
         }
     }
 
@@ -74,7 +74,7 @@ namespace PQLauncher
             {
                 InstalledMods.Add(config.name, configUri);
                 var suffix = "";
-                if (Platform.OSPlatform == PlatformValue.MacOSX)
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                     suffix = ".app";
                 InstallationPaths.Add(config.name, Path.Join(Platform.DefaultInstallationPath, config.gamename + suffix));
                 Save();
