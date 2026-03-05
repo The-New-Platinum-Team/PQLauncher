@@ -22,12 +22,10 @@ namespace PQLauncher
         {
             get
             {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) || RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                    return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".mblaunchercache");
                 if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                     return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".mblaunchercache");
 
-                return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".walaunchercache");
+                return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".mblaunchercache");
             }
         }
 
