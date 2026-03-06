@@ -41,7 +41,10 @@ namespace PQLauncher.JsonTemplates
 
         async public Task<bool> DownloadConfig()
         {
-            var http = new HttpClient();
+            var http = new HttpClient()
+            {
+                DefaultRequestVersion = HttpVersion.Version20,
+            };
 
             string json = await http.GetStringAsync(m_address);
             jsonData = json;
@@ -65,7 +68,10 @@ namespace PQLauncher.JsonTemplates
         /// <returns>If the download was successful</returns>
         async public Task<ModConfig> DownloadMod(Uri address)
         {
-            var http = new HttpClient();
+            var http = new HttpClient()
+            {
+                DefaultRequestVersion = HttpVersion.Version20,
+            };
 
             string json = await http.GetStringAsync(address);
             ModConfig config = null;

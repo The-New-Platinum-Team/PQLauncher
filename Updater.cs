@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PQLauncher
@@ -39,7 +41,10 @@ namespace PQLauncher
 
         public async Task<bool> Update(bool ignoreCache)
         {
-            var http = new HttpClient();
+            var http = new HttpClient()
+            {
+                DefaultRequestVersion = HttpVersion.Version20,
+            };
 
             /*
              * Step 0: Ensure VCRedist if we are on windows
@@ -351,54 +356,94 @@ namespace PQLauncher
             return builder.ToString();
         }
 
+        private static readonly HttpClient _sharedClient = new HttpClient()
+        {
+            DefaultRequestVersion = HttpVersion.Version11,
+        };
+
         async public Task<byte[]> DownloadWithProgress(Uri address, Action<long, long> progresser)
         {
-            var client = new HttpClient();
+            const int chunkSize = 4 * 1024 * 1024; // 4MB chunks
+            const int parallelChunks = 8;
 
             try
             {
-                // Must use ResponseHeadersRead to avoid buffering of the content
-                using (var response = await client.GetAsync(address, HttpCompletionOption.ResponseHeadersRead))
-                {
-                    // You must use as stream to have control over buffering and number of bytes read/received
-                    var chunks = new List<byte[]>();
-                    long readBytes = 0;
-                    long? totalBytes = response.Content.Headers.ContentLength;
-                    using (var stream = await response.Content.ReadAsStreamAsync())
-                    {
-                        // Read/process bytes from stream as appropriate
+                // HEAD request to get file size and check range support
+                using var head = await _sharedClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, address));
+                head.EnsureSuccessStatusCode();
 
-                        while (true)
-                        {
-                            var chunk = new byte[8192];
-                            var bytes = await stream.ReadAsync(chunk, 0, chunk.Length);
-                            if (bytes == 0)
-                            {
-                                break;
-                            }
-                            readBytes += bytes;
-                            chunks.Add(chunk[0..bytes]);
-                            progresser(readBytes, (long)totalBytes);
-                        }
-                    }
-                    if (readBytes != totalBytes)
-                    {
-                        return null;
-                    }
-                    var output = new byte[chunks.Sum(arr => arr.Length)];
-                    int writeIdx = 0;
-                    foreach (var byteArr in chunks)
-                    {
-                        byteArr.CopyTo(output, writeIdx);
-                        writeIdx += byteArr.Length;
-                    }
-                    return output;
+                long? totalBytes = head.Content.Headers.ContentLength;
+                bool acceptsRanges = head.Headers.AcceptRanges.Contains("bytes");
+
+                if (!totalBytes.HasValue || !acceptsRanges)
+                {
+                    // Fall back to single download
+                    return await DownloadSingle(address, totalBytes, progresser);
                 }
+
+                long total = totalBytes.Value;
+                var result = new byte[total];
+                long readBytes = 0;
+
+                // Split into chunks
+                var chunks = new List<(long start, long end)>();
+                for (long offset = 0; offset < total; offset += chunkSize)
+                    chunks.Add((offset, Math.Min(offset + chunkSize - 1, total - 1)));
+
+                await Parallel.ForEachAsync(chunks,
+                    new ParallelOptions { MaxDegreeOfParallelism = parallelChunks },
+                    async (chunk, ct) =>
+                    {
+                        var request = new HttpRequestMessage(HttpMethod.Get, address);
+                        request.Headers.Range = new System.Net.Http.Headers.RangeHeaderValue(chunk.start, chunk.end);
+
+                        using var response = await _sharedClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, ct);
+                        response.EnsureSuccessStatusCode();
+
+                        using var stream = await response.Content.ReadAsStreamAsync(ct);
+                        var buffer = new byte[256 * 1024];
+                        long pos = chunk.start;
+                        int bytes;
+                        while ((bytes = await stream.ReadAsync(buffer, ct)) > 0)
+                        {
+                            Buffer.BlockCopy(buffer, 0, result, (int)pos, bytes);
+                            pos += bytes;
+                            Interlocked.Add(ref readBytes, bytes);
+                            progresser(readBytes, total);
+                        }
+                    });
+
+                return readBytes == total ? result : null;
             }
             catch (Exception ex)
             {
                 return null;
             }
         }
+
+        private async Task<byte[]> DownloadSingle(Uri address, long? totalBytes, Action<long, long> progresser)
+        {
+            const int bufSize = 1024 * 1024;
+            var buffer = new byte[bufSize];
+
+            using var response = await _sharedClient.GetAsync(address, HttpCompletionOption.ResponseHeadersRead);
+            response.EnsureSuccessStatusCode();
+            long readBytes = 0;
+
+            using var stream = await response.Content.ReadAsStreamAsync();
+            using var output = new MemoryStream(totalBytes.HasValue ? (int)totalBytes.Value : 16 * 1024 * 1024);
+
+            int bytes;
+            while ((bytes = await stream.ReadAsync(buffer)) > 0)
+            {
+                await output.WriteAsync(buffer, 0, bytes);
+                readBytes += bytes;
+                if (totalBytes.HasValue)
+                    progresser(readBytes, totalBytes.Value);
+            }
+
+            return output.ToArray();
+        }
+
     }
 }

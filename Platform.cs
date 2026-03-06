@@ -8,6 +8,7 @@ using System.IO;
 using Microsoft.Win32;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Net;
 
 namespace PQLauncher
 {
@@ -237,7 +238,10 @@ namespace PQLauncher
 
             try
             {
-                using (var httpClient = new HttpClient())
+                using (var httpClient = new HttpClient()
+                {
+                    DefaultRequestVersion = HttpVersion.Version20,
+                })
                 {
                     httpClient.Timeout = TimeSpan.FromMinutes(5);
 

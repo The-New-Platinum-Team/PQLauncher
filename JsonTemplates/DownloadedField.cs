@@ -27,7 +27,10 @@ namespace PQLauncher.JsonTemplates
         /// <returns>If the download was successful</returns>
         async public Task<bool> Download()
         {
-            var client = new HttpClient();
+            var client = new HttpClient()
+            {
+                DefaultRequestVersion = HttpVersion.Version20,
+            };
            
             try
             {
@@ -55,7 +58,10 @@ namespace PQLauncher.JsonTemplates
         /// <returns>If the download was successful</returns>
         async public Task<bool> DownloadWithProgress(Action<long, long> progresser)
         {
-            var client = new HttpClient();
+            var client = new HttpClient()
+            {
+                DefaultRequestVersion = HttpVersion.Version20,
+            };
 
             try
             {
