@@ -7,6 +7,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -49,7 +50,7 @@ namespace PQLauncher
             /*
              * Step 0: Ensure VCRedist if we are on windows
              */
-            if (Platform.OSPlatform == PlatformValue.Windows)
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 await Platform.EnsureVCRedistInstalled(Logger);
             }
@@ -135,7 +136,7 @@ namespace PQLauncher
                         Logger?.Invoke(this, $"Backing up preferences file {prefsFile}.");
                         File.Copy(prefsFile, prefsFile + ".bak", true);
                     }
-                } 
+                }
                 catch (Exception e)
                 {
                      Logger?.Invoke(this, $"Failed to backup preferences file.");

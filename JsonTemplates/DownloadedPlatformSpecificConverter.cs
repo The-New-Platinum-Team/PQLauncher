@@ -21,7 +21,7 @@ namespace PQLauncher.JsonTemplates
             {
                 IDictionary<String, Uri> dict = serializer.Deserialize<IDictionary<String, Uri>>(reader);
 
-                var ourPlatform = Platform.PlatformToString(Platform.OSPlatform);
+                var ourPlatform = Platform.PlatformString();
                 Uri address = dict[ourPlatform];
                 return new DownloadedField<T>(address);
             }

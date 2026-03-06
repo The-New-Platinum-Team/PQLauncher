@@ -12,13 +12,6 @@ using System.Net;
 
 namespace PQLauncher
 {
-    enum PlatformValue
-    {
-        Windows,
-        Linux,
-        MacOSX,
-        Unknown
-    }
 
     internal class Platform
     {
@@ -26,37 +19,14 @@ namespace PQLauncher
 
         public static string LauncherConfigurationUrl = "https://marbleblast.com/files/launcher/config-new.json";
 
-        public static PlatformValue OSPlatform
-        {
-            get
-            {
-                var rti = RuntimeInformation.RuntimeIdentifier;
-                if (rti.StartsWith("win"))
-                    return PlatformValue.Windows;
-                else if (rti.StartsWith("linux"))
-                    return PlatformValue.Linux;
-                else if (rti.StartsWith("osx"))
-                    return PlatformValue.MacOSX;
-                else
-                    return PlatformValue.Unknown;
-            }
-        }
-
         public static string ConfigurationPath
         {
             get
             {
-                switch (OSPlatform)
-                {
-                    case PlatformValue.Windows:
-                        return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".mblaunchercache");
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                    return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".mblaunchercache");
 
-                    case PlatformValue.MacOSX:
-                        return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".mblaunchercache");
-
-                    default:
-                        return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".walaunchercache");
-                }
+                return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".mblaunchercache");
             }
         }
 
@@ -64,122 +34,71 @@ namespace PQLauncher
         {
             get
             {
-                switch (OSPlatform)
-                {
-                    case PlatformValue.Windows:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                    return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Applications");
 
-                    case PlatformValue.MacOSX:
-                        return Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Applications");
-
-                    default:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                }
+                return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             }
         }
 
-        public static string PlatformToString(PlatformValue val)
+        public static string PlatformString()
         {
-            switch (val)
-            {
-                case PlatformValue.Windows:
-                    return "windows";
-                case PlatformValue.MacOSX:
-                    return "mac";
-                default:
-                    return "other";
-            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                return "windows";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                return "mac";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                return "linux";
+
+            return "other";
         }
 
         public static void OpenDirectory(string path)
         {
-            switch (OSPlatform)
-            {
-                case PlatformValue.Windows:
-                    System.Diagnostics.Process.Start("explorer.exe", path.Replace("/", "\\"));
-                    break;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                Process.Start("explorer.exe", path.Replace("/", "\\"));
 
-                case PlatformValue.MacOSX:
-                    System.Diagnostics.Process.Start("open", ["-R", path]);
-                    break;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                Process.Start("open", ["-R", path]);
 
-                case PlatformValue.Linux:
-                    System.Diagnostics.Process.Start("xdg-open", path);
-                    break;
-            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                Process.Start("xdg-open", [path]);
         }
 
-        public static System.Diagnostics.Process LaunchGame(string path, bool offline, string[] args)
+        public static Process LaunchGame(string path, bool offline, string[] args)
         {
-            switch (OSPlatform)
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                case PlatformValue.Windows:
-                case PlatformValue.Linux:
-                case PlatformValue.Unknown:
-                    {
-                        if (OSPlatform != PlatformValue.Windows)
-                        {
-                            // Check if we can execute it
-                            var attribs = File.GetUnixFileMode(path);
-                            if ((attribs & UnixFileMode.UserExecute) == 0)
-                                attribs |= UnixFileMode.UserExecute;
-                            if ((attribs & UnixFileMode.GroupExecute) == 0)
-                                attribs |= UnixFileMode.GroupExecute;
-                            if ((attribs & UnixFileMode.OtherExecute) == 0)
-                                attribs |= UnixFileMode.OtherExecute;
-                            try
-                            {
-                                File.SetUnixFileMode(path, attribs);
-                            }
-                            catch (Exception ex)
-                            {
-                            }
-                        }
-                        var psi = new System.Diagnostics.ProcessStartInfo(path);
-                        if (offline)
-                            psi.Arguments = "-offline";
-
-                        if (args != null)
-                            psi.Arguments += string.Join(' ', args);
-
-                        psi.WorkingDirectory = Path.GetDirectoryName(path);
-                        return System.Diagnostics.Process.Start(psi);
-                    }
-
-                case PlatformValue.MacOSX:
-                    {
-                        // Check if we can execute it
-                        var attribs = File.GetUnixFileMode(path);
-                        if ((attribs & UnixFileMode.UserExecute) == 0)
-                            attribs |= UnixFileMode.UserExecute;
-                        if ((attribs & UnixFileMode.GroupExecute) == 0)
-                            attribs |= UnixFileMode.GroupExecute;
-                        if ((attribs & UnixFileMode.OtherExecute) == 0)
-                            attribs |= UnixFileMode.OtherExecute;
-                        try
-                        {
-                            File.SetUnixFileMode(path, attribs);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-
-                        var psi = new System.Diagnostics.ProcessStartInfo(path);
-                        if (offline)
-                            psi.Arguments = "-nohomedir -offline";
-                        else
-                            psi.Arguments = "-nohomedir";
-
-                        if (args != null)
-                            psi.Arguments += string.Join(' ', args);
-
-                        psi.WorkingDirectory = Path.GetDirectoryName(path);
-                        return System.Diagnostics.Process.Start(psi);
-                    }
-
-                default:
-                    return null;
+                // Check if we can execute it
+                var attribs = File.GetUnixFileMode(path);
+                attribs |= UnixFileMode.UserExecute | UnixFileMode.GroupExecute | UnixFileMode.OtherExecute;
+                try
+                {
+                    File.SetUnixFileMode(path, attribs);
+                }
+                catch (Exception ex)
+                {
+                }
             }
+
+            var psi = new ProcessStartInfo(path);
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                psi.ArgumentList.Add("-nohomedir");
+
+            if (offline)
+                psi.ArgumentList.Add("-offline");
+
+            if (args != null)
+            {
+                foreach (string arg in args)
+                    psi.ArgumentList.Add(arg);
+            }
+
+            psi.WorkingDirectory = Path.GetDirectoryName(path);
+            return Process.Start(psi);
         }
 
 

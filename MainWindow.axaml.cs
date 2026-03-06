@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -46,7 +47,7 @@ namespace PQLauncher
 
             Settings.Load();
 
-            if (Platform.OSPlatform == PlatformValue.Windows)
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 ProtocolHandler.TryParseArguments((args) =>
                 {
@@ -144,7 +145,12 @@ namespace PQLauncher
 
         void PopulateEntries()
         {
-            var defaultMod = launcherConfig.mods["pq"];
+            ModConfig defaultMod;
+            if (launcherConfig.mods.ContainsKey("pq"))
+                defaultMod = launcherConfig.mods["pq"];
+            else
+                defaultMod = launcherConfig.mods.First().Value;
+
             ModSelector.Items.Clear();
 
             // Add this to the mod selector
@@ -290,7 +296,7 @@ namespace PQLauncher
 
         private void ChangeGameLocation_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
-            if (currentMod != null && currentMod != "") { 
+            if (currentMod != null && currentMod != "") {
                 Settings.InstallationPaths.TryGetValue(currentMod, out string path);
                 if (path != null)
                 {
