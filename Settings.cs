@@ -16,6 +16,7 @@ namespace PQLauncher
         public required Dictionary<string, string> InstallationPaths;
         public required Dictionary<string, Uri> InstalledMods;
         public required Dictionary<string, string> ListingMD5;
+        public Dictionary<string, List<string>> ExcludedFiles { get; set; } = new Dictionary<string, List<string>>();
 
         public SettingsStruct()
         {
@@ -28,6 +29,7 @@ namespace PQLauncher
         public static Dictionary<string, string> InstallationPaths { get; set; } = new Dictionary<string, string>();
         public static Dictionary<string, Uri> InstalledMods { get; set; } = new Dictionary<string, Uri>();
         public static Dictionary<string, string> ListingMD5 { get; set; } = new Dictionary<string, string>();
+        public static Dictionary<string, List<string>> ExcludedFiles { get; set; } = new Dictionary<string, List<string>>();
 
         public static void Load()
         {
@@ -39,7 +41,8 @@ namespace PQLauncher
                 {
                     InstallationPaths = new Dictionary<string, string>(),
                     InstalledMods = new Dictionary<string, Uri>(),
-                    ListingMD5 = new Dictionary<string, string>()
+                    ListingMD5 = new Dictionary<string, string>(),
+                    ExcludedFiles = new Dictionary<string, List<string>>()
                 });
                 File.WriteAllText(Path.Join(Platform.ConfigurationPath, "settings.json"), json);
             }
@@ -52,6 +55,7 @@ namespace PQLauncher
                     InstallationPaths = settings.InstallationPaths;
                     InstalledMods = settings.InstalledMods;
                     ListingMD5 = settings.ListingMD5;
+                    ExcludedFiles = settings.ExcludedFiles ?? new Dictionary<string, List<string>>();
                 }
             }
         }
@@ -63,7 +67,8 @@ namespace PQLauncher
             {
                 InstallationPaths = InstallationPaths,
                 InstalledMods = InstalledMods,
-                ListingMD5 = ListingMD5
+                ListingMD5 = ListingMD5,
+                ExcludedFiles = ExcludedFiles
             });
             File.WriteAllText(Path.Join(Platform.ConfigurationPath, "settings.json"), json);
         }

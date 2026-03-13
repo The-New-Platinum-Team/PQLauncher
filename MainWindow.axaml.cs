@@ -459,6 +459,19 @@ namespace PQLauncher
             DoPlayButton(true);
         }
 
+        private void ManageExcludedFiles_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        {
+            if (currentMod != null && currentMod != "")
+            {
+                if (!Settings.InstallationPaths.TryGetValue(currentMod, out string installPath))
+                    installPath = null;
+                var manager = new ExcludedFilesManager(DialogManager, currentMod, installPath);
+                var dlg = DialogManager.CreateDialog();
+                dlg.SetContent(manager);
+                dlg.TryShow();
+            }
+        }
+
         private void Import_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             if (currentMod != null && currentMod != "")
