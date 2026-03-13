@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="300"
+             Width="500"
+             x:Class="PQLauncher.ExcludedFilesManager">
+	<StackPanel Margin="10">
+		<Label FontSize="16" FontWeight="Bold" Margin="0,0,0,5">Excluded Image Files</Label>
+		<TextBlock TextWrapping="Wrap" Margin="0,0,0,10">Selected image files will not be overwritten during updates. Only image files can be excluded.</TextBlock>
+		<ListBox Name="ExcludedFilesList" Height="180" Margin="0,0,0,10" />
+		<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+			<Button Name="AddFileBtn" Click="AddFile_Click">Add Image File</Button>
+			<Button Name="RemoveFileBtn" Click="RemoveFile_Click" IsEnabled="False">Remove</Button>
+			<Button Click="Done_Click">Done</Button>
+		</StackPanel>
+	</StackPanel>
+</UserControl>
