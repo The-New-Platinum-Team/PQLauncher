@@ -210,15 +210,32 @@ namespace PQLauncher
             return count;
         }
 
+        // Image file extensions that can be excluded from updates
+        public static readonly HashSet<string> ImageExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ".png", ".jpg", ".jpeg", ".bmp", ".gif", ".tga", ".dds", ".pvr", ".webp"
+        };
+
         void CheckConsistency(JObject listing, int count)
         {
             var done = 0;
             var installPath = Settings.InstallationPaths[game.name];
+            var excludedFiles = Settings.ExcludedFiles.ContainsKey(game.name)
+                ? new HashSet<string>(Settings.ExcludedFiles[game.name], StringComparer.OrdinalIgnoreCase)
+                : new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var res = Parallel.ForEach(IterateFiles(listing, installPath, ""), (a, _) =>
             {
                 done += 1;
                 DownloadProgressUpdate?.Invoke(this, new UpdateProgress(done, count));
                 ProgressUpdate?.Invoke(this, new UpdateProgress(3 * count + done, 5 * count));
+
+                // Skip files that the user has chosen to exclude, restricted to image files only
+                if (ImageExtensions.Contains(Path.GetExtension(a.FileName)) && excludedFiles.Contains(a.ActualPath))
+                {
+                    Logger?.Invoke(this, $"Skipping excluded image file: {a.FileName}");
+                    return;
+                }
+
                 var ourMD5 = GetMD5(a.Path);
                 if (ourMD5 != a.MD5)
                 {
