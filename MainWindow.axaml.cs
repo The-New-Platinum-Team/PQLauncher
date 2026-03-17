@@ -294,33 +294,38 @@ namespace PQLauncher
             }
         }
 
-        private void ChangeGameLocation_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+        private async void ChangeGameLocation_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
         {
             if (currentMod != null && currentMod != "") {
                 Settings.InstallationPaths.TryGetValue(currentMod, out string path);
                 if (path != null)
                 {
-                   Settings.InstallationPaths.TryGetValue(currentMod, out string existingPath);
-                   var startLoc = StorageProvider.TryGetFolderFromPathAsync(new Uri(existingPath));
-                   startLoc.Wait();
-                   var folderTask = StorageProvider.OpenFolderPickerAsync(new Avalonia.Platform.Storage.FolderPickerOpenOptions()
-                   {
-                       AllowMultiple = false,
-                       SuggestedStartLocation = startLoc.Result,
-                       Title = "Select the game folder",
-                   });
-                    folderTask.ContinueWith((t) =>
+                    Settings.InstallationPaths.TryGetValue(currentMod, out string existingPath);
+                    var startLoc = await StorageProvider.TryGetFolderFromPathAsync(new Uri(existingPath));
+                    var folderTask = StorageProvider.OpenFolderPickerAsync(new Avalonia.Platform.Storage.FolderPickerOpenOptions()
+                    {
+                        AllowMultiple = false,
+                        SuggestedStartLocation = startLoc,
+                        Title = "Select the game folder",
+                    });
+                    await folderTask.ContinueWith((t) =>
                     {
                         var folder = t.Result;
                         if (folder.Count != 0)
                         {
                             // Set the game folder
                             var selectedFolder = folder.First().Path.ToString();
-                            selectedFolder = selectedFolder.Replace("file:///", "");
-                            Settings.InstallationPaths[currentMod] = selectedFolder;
-                            Settings.Save();
+                            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                                selectedFolder = selectedFolder.Replace("file:///", "");
+                            else
+                                selectedFolder = selectedFolder.Replace("file:///", "/");
 
-                            GameLocation.Content = "Game Location: " + Settings.InstallationPaths[currentMod];
+                            OnMainThread(() => {
+                                Settings.InstallationPaths[currentMod] = selectedFolder;
+                                Settings.Save();
+
+                                GameLocation.Content = "Game Location: " + Settings.InstallationPaths[currentMod];
+                            });
                         }
                     });
                 }
